@@ -3,38 +3,16 @@ using UnityEngine;
 
 public class ArtiObjectScript : MonoBehaviour {
 
-	//This is shown in the signature, if a signature is shown at all
-	public string signatureName;
 
-	//Who actually pained it
-	public string artistsRealName;
 
-	//The real artist's name
-	public string impersonatedArtistsName;
+	//Were the details provided?
+	public bool PresetValues;
 
-	//Is it a fake?
-	public bool isFake;
-
-	//Is it a fake?
-	public bool isGoodFake;
-
-	//How much did they want
-	public float askValue;
-
-	//How much would they settle for
-	public float settleValue;
-
-	//What's it actually worth
-	public float actualValue;
-
-	//Which of the signatures, if any, should be shown
-	public int signatureLocation;
+	//The values that create this artwork
+	public GameController.Art artValues;
 
 	//All possible signature locations 
 	public TextMeshPro[] signatureLocations;
-
-	//The chosen font for the signature
-	public int signatureFont;
 
 	//All possible signature fonts 
 	public TMP_FontAsset[] signatureFonts;
@@ -42,14 +20,8 @@ public class ArtiObjectScript : MonoBehaviour {
 	//The signature element
 	private TextMeshPro signature;
 
-	//Which frame should be displayed
-	public int frameOption;
-
 	//All frame options
 	public GameObject[] frameOptions;
-
-	//The specific material chosen for the frame
-	public int frameMaterial;
 
 	//All available frame materials
 	public Material[] frameMaterials;
@@ -61,7 +33,7 @@ public class ArtiObjectScript : MonoBehaviour {
 	public Texture[] fakeArtwork;
 
 	//The artwork texture
-	public Texture artwork;
+	private Texture artwork;
 
 	//The canvas element
 	public MeshRenderer canvas;
@@ -72,57 +44,33 @@ public class ArtiObjectScript : MonoBehaviour {
 	//Game controller
 	private GameController gc;
 
-
-
 	void Start() {
 
 		//Get the game controller
 		gc = FindFirstObjectByType<GameController>();
 
-		PickRandomValues();
 
-		//Hide all non-active frames
-		foreach (var _frame in frameOptions) {
-			_frame.SetActive(_frame == frameOptions[frameOption]);
+		//Not a preset artwork, aka saved and loaded artwork?
+		if (!PresetValues) {
+
+			//Pick some random values
+			PickRandomValues();
 		}
 
+
 		//Get the frame renderer
-		frame = frameOptions[frameOption].GetComponent<MeshRenderer>();
+		frame = frameOptions[artValues.frameOption].GetComponent<MeshRenderer>();
 
 		//Instantiate the frame material
-		frame.material = new Material(frameMaterials[frameMaterial]);
+		frame.material = new Material(frameMaterials[artValues.frameMaterial]);
 
 
 		//Instantiate the canvas material
-		canvas.material = new Material(canvas.material) {
-
-			//Set the artwork texture
-			mainTexture = artwork,
-		};
-
-
-		//Hide all non-active signatures
-		foreach (var _signatureLocation in signatureLocations) {
-			_signatureLocation.gameObject.SetActive(_signatureLocation == signatureLocations[signatureLocation]);
-		}
-
-		if (signatureLocation > -1) {
-			
-			//Shorthand the signature
-			signature = signatureLocations[signatureLocation];
-			
-			//Set the font
-			signature.font = signatureFonts[signatureFont];
-			
-			//Set the text
-			signature.SetText(signatureName);
-		}
-		else {
-			Debug.Log("No signature for this artwork");
-		}
+		canvas.material = new Material(canvas.material);
 
 
 
+		Render();
 	}
 
 	// Update is called once per frame
@@ -132,59 +80,95 @@ public class ArtiObjectScript : MonoBehaviour {
 
 
 	void PickRandomValues() {
+		var randomArtValues = new GameController.Art();
 
 		//Is it fake? Flip a coin
-		isFake = Random.Range(0, 2) == 1;
+		randomArtValues.isFake = gc.FlipCoin();
 
 		//If it IS fake
-		if (isFake) {
+		if (randomArtValues.isFake) {
 
 			//Is it a good fake? Flip a coin
-			isGoodFake = Random.Range(0, 2) == 1;
+			randomArtValues.isGoodFake = gc.FlipCoin();
 		}
 
 		//Pick a frame
-		frameOption = Random.Range(0, frameOptions.Length);
+		randomArtValues.frameOption = Random.Range(0, frameOptions.Length);
 
 		//Pick a frame matereial
-		frameMaterial = Random.Range(0, frameMaterials.Length);
+		randomArtValues.frameMaterial = Random.Range(0, frameMaterials.Length);
 
 
 		//Pick a font
-		signatureFont = Random.Range(0, signatureFonts.Length);
+		randomArtValues.signatureFont = Random.Range(0, signatureFonts.Length);
 
 
 
 		//Set the artists real name 
-		artistsRealName = gc.CreateName();
+		randomArtValues.artistsRealName = gc.CreateName();
 
 		//If fake set the name of the artist being impersonated, if real set it to artistsRealName
-		impersonatedArtistsName = isFake ? gc.CreateName() : artistsRealName;
+		randomArtValues.impersonatedArtistsName = randomArtValues.isFake ? gc.CreateName() : randomArtValues.artistsRealName;
 
 		//If fake make up a new name, or use the artistsRealName, if real set it to the artistsRealName
-		signatureName = isFake ? (Random.Range(0, 2) == 1 ? artistsRealName : gc.CreateName()) : artistsRealName;
+		randomArtValues.signatureName = randomArtValues.isFake ? (gc.FlipCoin() ? randomArtValues.artistsRealName : gc.CreateName()) : randomArtValues.artistsRealName;
 
 
 		//Pick a font
-		signatureFont = Random.Range(0, signatureFonts.Length);
+		randomArtValues.signatureFont = Random.Range(0, signatureFonts.Length);
 
+		randomArtValues.whichArtwork = Random.Range(0, realArtwork.Length);
 
 		//Is the artwork fake? (but not a good fake)
-		if (isFake && !isGoodFake) {
-			artwork = fakeArtwork[Random.Range(0, fakeArtwork.Length)];
+		if (randomArtValues.isFake && !randomArtValues.isGoodFake) {
+			artwork = fakeArtwork[randomArtValues.whichArtwork];
 
 			//Pick a signature location, mandatory for low quality fakes
-			signatureLocation = Random.Range(0, signatureLocations.Length);
+			randomArtValues.signatureLocation = Random.Range(0, signatureLocations.Length);
 		}
 
 		//Real art, or good fake
 		else {
-			artwork = realArtwork[Random.Range(0, realArtwork.Length)];
+			artwork = realArtwork[randomArtValues.whichArtwork];
 
 			//Pick a signature location, or leave it off entirely 
-			signatureLocation = Random.Range(-1, signatureLocations.Length);
+			randomArtValues.signatureLocation = gc.FlipCoin() ? Random.Range(-1, signatureLocations.Length) : -1;
 		}
 
+		artValues = randomArtValues;
+
+	}
+
+	void Render() {
+
+		//Hide all non-active frames
+		foreach (var _frame in frameOptions) {
+			_frame.SetActive(_frame == frameOptions[artValues.frameOption]);
+		}
+
+		//Set the artwork texture
+		canvas.material.mainTexture = artwork;
+
+
+		//Hide all non-active signatures
+		foreach (var _signatureLocation in signatureLocations) {
+			_signatureLocation.gameObject.SetActive(artValues.signatureLocation > -1 && _signatureLocation == signatureLocations[artValues.signatureLocation]);
+		}
+
+		if (artValues.signatureLocation > -1) {
+
+			//Shorthand the signature
+			signature = signatureLocations[artValues.signatureLocation];
+
+			//Set the font
+			signature.font = signatureFonts[artValues.signatureFont];
+
+			//Set the text
+			signature.SetText(artValues.signatureName);
+		}
+		else {
+			Debug.Log("No signature for this artwork");
+		}
 
 	}
 }
