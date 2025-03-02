@@ -7,8 +7,8 @@ public class GameController : MonoBehaviour {
 	public GameObject[] ArtPrefabs;
 	public AudioSource audioSource;
 	public Names names;
-	public ArtiObjectScript[] portraitHangPoints;
-	public ArtiObjectScript[] squareHangPoints;
+	public ArtObjectScript[] portraitHangPoints;
+	public ArtObjectScript[] squareHangPoints;
 	public Art[] collectedArt;
 
 	public struct Names {

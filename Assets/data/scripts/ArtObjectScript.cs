@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ArtiObjectScript : MonoBehaviour {
-
+public class ArtObjectScript : MonoBehaviour {
 
 
 	//Were the details provided?
