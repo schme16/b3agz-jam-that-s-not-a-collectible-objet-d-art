@@ -7,8 +7,8 @@ public class GameController : MonoBehaviour {
 	public GameObject[] ArtPrefabs;
 	public AudioSource audioSource;
 	public Names names;
-	public ArtiObjectScript portraitHangPoints;
-	public ArtiObjectScript squareHangPoints;
+	public ArtiObjectScript[] portraitHangPoints;
+	public ArtiObjectScript[] squareHangPoints;
 	public Art[] collectedArt;
 
 	public struct Names {
@@ -29,6 +29,14 @@ public class GameController : MonoBehaviour {
 		public int frameOption;
 		public int frameMaterial;
 		public int whichArtwork;
+	}
+
+	public struct Npc {
+		public string name;
+		public string askingPrice;
+		public string willAcceptPrice;
+		public bool knowsItsFake;
+		public Art artPiece;
 	}
 
 
