@@ -46,15 +46,12 @@ public class NPCArtSellerScript : MonoBehaviour {
 		//Shorthand the game controller
 		gc = FindFirstObjectByType<GameController>();
 
-		//Turn the animator off until we generate the painting
-		//animator.enabled = false;
 
 		//Generate a painting
 		painting = Instantiate(gc.FlipCoin() ? paintingAPrefab : paintingBPrefab, paintingHolder).GetComponent<ArtObjectScript>();
 
 		//Set its name for the animator
 		painting.name = "painting";
-
 
 		//Pick a spawn location
 		paintingSpawnPositionIndex = Random.Range(0, paintingSpawnPositions.Length);
@@ -66,6 +63,32 @@ public class NPCArtSellerScript : MonoBehaviour {
 		painting.transform.position = paintingSpawnPosition.position;
 		painting.transform.rotation = paintingSpawnPosition.rotation;
 		painting.transform.localScale = paintingSpawnPosition.localScale;
+
+
+
+		//Set up the NPC's info
+		var newNPC = new GameController.Npc();
+		newNPC.name = gc.CreateName();
+		newNPC.askingPrice = Random.Range(45, 769);
+		newNPC.thinksItsFake = gc.FlipCoin();
+		newNPC.willAcceptPrice = (int)(newNPC.thinksItsFake ? (newNPC.askingPrice / 3) : (newNPC.askingPrice - newNPC.askingPrice * 0.1));
+		newNPC.willStormOut = gc.FlipCoin();
+		newNPC.artPiece = painting.artValues;
+
+		npc = newNPC;
+
+		gc.yarnStorage.SetValue("$signatureName", npc.artPiece.signatureName);
+		gc.yarnStorage.SetValue("$artistsRealName", npc.artPiece.artistsRealName);
+		gc.yarnStorage.SetValue("$impersonatedArtistsName", npc.artPiece.impersonatedArtistsName);
+		gc.yarnStorage.SetValue("$isFake", npc.artPiece.isFake);
+		gc.yarnStorage.SetValue("$isGoodFake", npc.artPiece.isGoodFake);
+		gc.yarnStorage.SetValue("$actualValue", npc.artPiece.actualValue);
+		
+		gc.yarnStorage.SetValue("$npcName", npc.name);
+		gc.yarnStorage.SetValue("$thinksItsFake", npc.thinksItsFake);
+		gc.yarnStorage.SetValue("$willStormOut", npc.willStormOut);
+		gc.yarnStorage.SetValue("$askingPrice", npc.askingPrice);
+		gc.yarnStorage.SetValue("$willAcceptPrice", npc.willAcceptPrice);
 
 
 		//Rebind the animator to include the new painting

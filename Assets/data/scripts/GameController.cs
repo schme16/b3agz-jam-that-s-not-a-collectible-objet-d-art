@@ -1,4 +1,5 @@
 using UnityEngine;
+using Yarn.Unity;
 
 public class GameController : MonoBehaviour {
 
@@ -6,6 +7,7 @@ public class GameController : MonoBehaviour {
 
 	public GameObject[] ArtPrefabs;
 	public AudioSource audioSource;
+	public VariableStorageBehaviour yarnStorage;
 	public Names names;
 	public ArtObjectScript[] portraitHangPoints;
 	public ArtObjectScript[] squareHangPoints;
@@ -28,7 +30,7 @@ public class GameController : MonoBehaviour {
 		public string impersonatedArtistsName;
 		public bool isFake;
 		public bool isGoodFake;
-		public float actualValue;
+		public int actualValue;
 		public int signatureLocation;
 		public int signatureFont;
 		public int frameOption;
@@ -38,11 +40,13 @@ public class GameController : MonoBehaviour {
 
 	public struct Npc {
 		public string name;
-		public string askingPrice;
-		public string willAcceptPrice;
-		public bool knowsItsFake;
+		public int askingPrice;
+		public int willAcceptPrice;
+		public bool thinksItsFake;
+		public bool willStormOut;
 		public Art artPiece;
 	}
+
 
 
 	void Start() {
@@ -70,6 +74,20 @@ public class GameController : MonoBehaviour {
 	public bool FlipCoin() {
 		bool heads = Random.Range(0, 2) == 0;
 		return heads;
+	}
+
+
+	[YarnCommand("purchase")]
+	public static void Purchase() {
+		var gc = FindFirstObjectByType<GameController>();
+		gc.yarnStorage.TryGetValue<System.Single>($"$askingPrice", out var purchasePrice);
+		Debug.Log($"Purchased for {purchasePrice}!");
+	}
+
+	[YarnCommand("storm_out")]
+	public static void StormOut() {
+		var gc = FindFirstObjectByType<GameController>();
+		Debug.Log("storm_out!");
 	}
 
 
