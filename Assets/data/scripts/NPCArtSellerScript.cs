@@ -1,4 +1,3 @@
-using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
@@ -72,32 +71,55 @@ public class NPCArtSellerScript : MonoBehaviour {
 	}
 
 	private async UniTask GoToWaypoint(Transform destination) {
-		await GoToWaypoint(destination.position);
+		await GoToWaypoint(destination.position, new Vector3(-999, -999, -999));
 	}
 
-	private async UniTask GoToWaypoint(Vector3 destination) {
+	private async UniTask GoToWaypoint(Transform destination, Vector3 facingDirectionAtEnd) {
+		await GoToWaypoint(destination.position, facingDirectionAtEnd);
+	}
+
+	private async UniTask GoToWaypoint(Vector3 destination, Vector3 facingDirectionAtEnd, bool startBeforeEnd = false) {
 		agent.SetDestination(destination);
+		var hasRotated = false;
+		var angularSpeed = agent.angularSpeed;
 
 		while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance) {
+
+			if (facingDirectionAtEnd.x != -999 && !startBeforeEnd && !hasRotated && agent.remainingDistance < 2) {
+
+				agent.angularSpeed = 0;
+
+				hasRotated = true;
+
+				Rotate(facingDirectionAtEnd);
+			}
+
 			await UniTask.Yield();
 		}
-	}
-	private async UniTask Rotate(Vector3 destination, float speed = 1) {
 
-		var t = 0f;
+		if (facingDirectionAtEnd.x != -999 && !startBeforeEnd) {
+			Rotate(facingDirectionAtEnd);
+		}
+		agent.angularSpeed = angularSpeed;
+
+	}
+
+	private async UniTask Rotate(Vector3 destination, float speed = 1.05f) {
+
+		float t = 0f;
 		var startValue = transform.eulerAngles;
 
 		while (t < 1) {
-			transform.eulerAngles = Vector3.Lerp(startValue, destination, t);
-			
-			t = Mathf.Clamp(0, 1, (t + (Time.deltaTime * speed)));
-			
-			await UniTask.Yield();
+
+			//Set the angle
+			transform.eulerAngles = Vector3.Lerp(startValue, destination, EasingFunction.EaseInQuad(0, 1, t));
+
+			//Update the time value
+			t = Mathf.Clamp(t + (Time.deltaTime * speed), 0, 1);
+			await UniTask.Yield(PlayerLoopTiming.Update);
 		}
+		transform.eulerAngles = destination;
 	}
-
-
-
 
 	private async void GoToCounter() {
 
@@ -120,21 +142,45 @@ public class NPCArtSellerScript : MonoBehaviour {
 		//animator.enabled = true;
 
 		//Go to the counter
-		await GoToWaypoint(waypointCounter);
+		await GoToWaypoint(waypointCounter, waypointCounter.eulerAngles);
+
+		//Turn the agent off
+		agent.enabled = false;
 
 		//Trigger the painting placement animation
 		animator.SetInteger("state", paintingSpawnPositionIndex + 1);
 		animator.SetTrigger("trigger");
 		await UniTask.DelayFrame(60);
 		animator.ResetTrigger("trigger");
-		await Rotate(waypointCounter.eulerAngles);
+
+		await UniTask.Delay(1150);
+
+
+		//Move the painting over to the countertop
+		var paintingPosBackup = painting.transform.position;
+		var paintingRotBackup = painting.transform.rotation;
+
+		//Move the painting over to the countertop
+		painting.transform.parent = gc.counterPaintingHolder;
+		
+		//Rebind the animator, to release the painting
+		animator.Rebind();
+		
+		//Update the animator a non-frame
+		animator.Update(0);
+		
+		//Re-apply the position
+		painting.transform.position = paintingPosBackup;
+		
+		//Re-apply the rotation
+		painting.transform.rotation = paintingRotBackup;
 	}
 
 	private async void Leave() {
 
 		agent.autoBraking = false;
 		agent.stoppingDistance = 2;
-		await GoToWaypoint(waypointInsideDoor.position);
-		await GoToWaypoint(waypointLeave.position);
+		await GoToWaypoint(waypointInsideDoor);
+		await GoToWaypoint(waypointLeave);
 	}
 }
