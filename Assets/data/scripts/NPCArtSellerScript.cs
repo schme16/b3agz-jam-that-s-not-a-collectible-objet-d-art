@@ -26,23 +26,23 @@ public class NPCArtSellerScript : MonoBehaviour {
 	private Transform paintingSpawnPosition;
 
 	async void Start() {
-		
+
 		//Shorthand the game controller
 		gc = FindFirstObjectByType<GameController>();
 
 		//Turn the animator off until we generate the painting
 		//animator.enabled = false;
-		
+
 		//Generate a painting
 		painting = Instantiate(gc.FlipCoin() ? paintingAPrefab : paintingBPrefab, paintingHolder).GetComponent<ArtObjectScript>();
 
 		//Set its name for the animator
 		painting.name = "painting";
 
-		
+
 		//Pick a spawn location
 		paintingSpawnPositionIndex = Random.Range(0, paintingSpawnPositions.Length);
-			
+
 		//Shorthand it
 		paintingSpawnPosition = paintingSpawnPositions[paintingSpawnPositionIndex];
 
@@ -50,11 +50,11 @@ public class NPCArtSellerScript : MonoBehaviour {
 		painting.transform.position = paintingSpawnPosition.position;
 		painting.transform.rotation = paintingSpawnPosition.rotation;
 		painting.transform.localScale = paintingSpawnPosition.localScale;
-	
+
 
 		//Rebind the animator to include the new painting
 		animator.Rebind();
-		
+
 		//Wait a bit
 		await UniTask.Delay(Random.Range(100, 4000 + 1));
 
@@ -82,6 +82,22 @@ public class NPCArtSellerScript : MonoBehaviour {
 			await UniTask.Yield();
 		}
 	}
+	private async UniTask Rotate(Vector3 destination, float speed = 1) {
+
+		var t = 0f;
+		var startValue = transform.eulerAngles;
+
+		while (t < 1) {
+			transform.eulerAngles = Vector3.Lerp(startValue, destination, t);
+			
+			t = Mathf.Clamp(0, 1, (t + (Time.deltaTime * speed)));
+			
+			await UniTask.Yield();
+		}
+	}
+
+
+
 
 	private async void GoToCounter() {
 
@@ -89,28 +105,29 @@ public class NPCArtSellerScript : MonoBehaviour {
 		//Makes for smoother waypoints
 		agent.autoBraking = false;
 		agent.stoppingDistance = 2;
-		
+
 		//Go to the the outside door waypoint
 		await GoToWaypoint(waypointOutsideDoor);
-		
+
 		//Go to the the inside door waypoint
 		await GoToWaypoint(waypointInsideDoor);
-		
+
 		//Turn braking back on, and make the agent stop on the dot
 		agent.autoBraking = true;
 		agent.stoppingDistance = 0;
-		
+
 		//Re-enable the animator
 		//animator.enabled = true;
-		
+
 		//Go to the counter
 		await GoToWaypoint(waypointCounter);
-		
+
 		//Trigger the painting placement animation
 		animator.SetInteger("state", paintingSpawnPositionIndex + 1);
 		animator.SetTrigger("trigger");
-		await UniTask.Delay(1500);
+		await UniTask.DelayFrame(60);
 		animator.ResetTrigger("trigger");
+		await Rotate(waypointCounter.eulerAngles);
 	}
 
 	private async void Leave() {
