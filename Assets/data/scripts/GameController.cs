@@ -11,6 +11,10 @@ public class GameController : MonoBehaviour {
 	public ArtObjectScript[] squareHangPoints;
 	public Art[] collectedArt;
 	public Transform counterPaintingHolder;
+	public Texture[] eyebrows;
+	public Texture[] eyes;
+	public Texture[] noses;
+	public Texture[] mouths;
 
 	public struct Names {
 		public string[] first;
