@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -18,6 +19,9 @@ public class ArtObjectScript : MonoBehaviour {
 
 	//The signature element
 	private TextMeshPro signature;
+	
+	//The signature element
+	public bool isSquare;
 
 	//All frame options
 	public GameObject[] frameOptions;
@@ -63,7 +67,6 @@ public class ArtObjectScript : MonoBehaviour {
 		//Instantiate the frame material
 		frame.material = new Material(frameMaterials[artValues.frameMaterial]);
 
-
 		//Instantiate the canvas material
 		canvas.material = new Material(canvas.material);
 
@@ -81,6 +84,9 @@ public class ArtObjectScript : MonoBehaviour {
 	void PickRandomValues() {
 		var randomArtValues = new GameController.Art();
 
+		randomArtValues.hangedPosition = -1;
+		randomArtValues.isSquare = isSquare;
+		
 		//Is it fake? Flip a coin
 		randomArtValues.isFake = gc.FlipCoin();
 
@@ -97,11 +103,8 @@ public class ArtObjectScript : MonoBehaviour {
 		//Pick a frame matereial
 		randomArtValues.frameMaterial = Random.Range(0, frameMaterials.Length);
 
-
 		//Pick a font
 		randomArtValues.signatureFont = Random.Range(0, signatureFonts.Length);
-
-
 
 		//Set the artists real name 
 		randomArtValues.artistsRealName = gc.CreateName();
@@ -138,7 +141,23 @@ public class ArtObjectScript : MonoBehaviour {
 
 	}
 
-	void Render() {
+	public void LoadSavedArtwork(GameController.Art values) {
+
+		artValues = values;
+		
+		//Is the artwork fake? (but not a good fake)
+		if (values.isFake && !values.isGoodFake) {
+			artwork = fakeArtwork[values.whichArtwork];
+		}
+
+		//Real art, or good fake
+		else {
+			artwork = realArtwork[values.whichArtwork];
+		}
+		Render();
+	}
+
+	public void Render() {
 
 		//Hide all non-active frames
 		foreach (var _frame in frameOptions) {

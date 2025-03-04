@@ -15,10 +15,6 @@ public class NPCArtSellerScript : MonoBehaviour {
 	public ArtObjectScript painting;
 	public GameObject paintingAPrefab;
 	public GameObject paintingBPrefab;
-	public Transform waypointCounter;
-	public Transform waypointInsideDoor;
-	public Transform waypointOutsideDoor;
-	public Transform waypointLeave;
 	public bool leaving;
 	public bool lastLeaving;
 
@@ -83,7 +79,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 		gc.yarnStorage.SetValue("$isFake", npc.artPiece.isFake);
 		gc.yarnStorage.SetValue("$isGoodFake", npc.artPiece.isGoodFake);
 		gc.yarnStorage.SetValue("$actualValue", npc.artPiece.actualValue);
-		
+
 		gc.yarnStorage.SetValue("$npcName", npc.name);
 		gc.yarnStorage.SetValue("$thinksItsFake", npc.thinksItsFake);
 		gc.yarnStorage.SetValue("$willStormOut", npc.willStormOut);
@@ -133,34 +129,17 @@ public class NPCArtSellerScript : MonoBehaviour {
 
 				hasRotated = true;
 
-				Rotate(facingDirectionAtEnd);
+				gc.Rotate(transform, facingDirectionAtEnd);
 			}
 
 			await UniTask.Yield();
 		}
 
 		if (facingDirectionAtEnd.x != -999 && !startBeforeEnd) {
-			Rotate(facingDirectionAtEnd);
+			gc.Rotate(transform, facingDirectionAtEnd);
 		}
 		agent.angularSpeed = angularSpeed;
 
-	}
-
-	private async UniTask Rotate(Vector3 destination, float speed = 1.05f) {
-
-		float t = 0f;
-		var startValue = transform.eulerAngles;
-
-		while (t < 1) {
-
-			//Set the angle
-			transform.eulerAngles = Vector3.Lerp(startValue, destination, EasingFunction.EaseInQuad(0, 1, t));
-
-			//Update the time value
-			t = Mathf.Clamp(t + (Time.deltaTime * speed), 0, 1);
-			await UniTask.Yield(PlayerLoopTiming.Update);
-		}
-		transform.eulerAngles = destination;
 	}
 
 	private async void GoToCounter() {
@@ -171,10 +150,10 @@ public class NPCArtSellerScript : MonoBehaviour {
 		agent.stoppingDistance = 2;
 
 		//Go to the the outside door waypoint
-		await GoToWaypoint(waypointOutsideDoor);
+		await GoToWaypoint(gc.waypointOutsideDoor);
 
 		//Go to the the inside door waypoint
-		await GoToWaypoint(waypointInsideDoor);
+		await GoToWaypoint(gc.waypointInsideDoor);
 
 		//Turn braking back on, and make the agent stop on the dot
 		agent.autoBraking = true;
@@ -184,7 +163,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 		//animator.enabled = true;
 
 		//Go to the counter
-		await GoToWaypoint(waypointCounter, waypointCounter.eulerAngles);
+		await GoToWaypoint(gc.waypointCounter, gc.waypointCounter.eulerAngles);
 
 		//Turn the agent off
 		agent.enabled = false;
@@ -216,14 +195,63 @@ public class NPCArtSellerScript : MonoBehaviour {
 
 		//Re-apply the rotation
 		painting.transform.rotation = paintingRotBackup;
+
+		gc.npcInConversation = this;
+		gc.readyToTalk = true;
 	}
 
-	private async void Leave() {
+	public async void Leave() {
 
+		//Turn the agent off
+		agent.enabled = true;
+		
+		gc.talking = false;
+		
 		agent.autoBraking = false;
 		agent.stoppingDistance = 2;
-		await GoToWaypoint(waypointInsideDoor);
-		await GoToWaypoint(waypointLeave);
+		await GoToWaypoint(gc.waypointInsideDoor);
+		await GoToWaypoint(gc.waypointLeave);
+		
+		
+		await UniTask.Delay(4000);
+		gc.SpawnNewNPC();
+		Destroy(gameObject);
+
+	}
+
+	public async void LeaveWithPainting() {
+
+		gc.talking = false;
+		
+		//Backup the pianting data
+		var paintingPosBackup = painting.transform.position;
+		var paintingRotBackup = painting.transform.rotation;
+
+		//Move the painting back to the npc
+		painting.transform.parent = paintingHolder;
+
+		//Rebind the animator, to release the painting
+		animator.Rebind();
+
+		//Update the animator a non-frame
+		animator.Update(0);
+
+		//Re-apply the position
+		painting.transform.position = paintingPosBackup;
+
+		//Re-apply the rotation
+		painting.transform.rotation = paintingRotBackup;
+
+		//Trigger the painting placement animation
+		animator.SetInteger("state", (paintingSpawnPositionIndex + 1) + 3);
+		animator.SetTrigger("trigger");
+		await UniTask.DelayFrame(60);
+		animator.ResetTrigger("trigger");
+
+		await UniTask.Delay(900);
+		
+		Leave();
+		
 	}
 
 

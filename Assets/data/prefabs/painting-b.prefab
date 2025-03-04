@@ -1689,15 +1689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e1019578f29ef46ad3e83586611265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signatureName: 
-  artistsRealName: 
-  impersonatedArtistsName: 
-  isFake: 0
-  isGoodFake: 0
-  askValue: 0
-  settleValue: 0
-  actualValue: 0
-  signatureLocation: 0
+  PresetValues: 0
   signatureLocations:
   - {fileID: 7654118947708662287}
   - {fileID: 7529333803522236025}
@@ -1707,7 +1699,6 @@ MonoBehaviour:
   - {fileID: 1992217475485174943}
   - {fileID: 1550829872725574095}
   - {fileID: 7918825846340726864}
-  signatureFont: 0
   signatureFonts:
   - {fileID: 11400000, guid: c665d4d267200a3459469e1634648032, type: 2}
   - {fileID: 11400000, guid: 55d6a6eeb4f3a664693a1546d0d70371, type: 2}
@@ -1723,7 +1714,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1715cdc36aa60a0488ba892c4087023a, type: 2}
   - {fileID: 11400000, guid: 08bad456b4be862409c7ef30deaec055, type: 2}
   - {fileID: 11400000, guid: 5b76e0fba5e8fb94d8c56a5b73a9c503, type: 2}
-  frameOption: 0
+  isSquare: 1
   frameOptions:
   - {fileID: 2264995954705684485}
   - {fileID: 4031236940278993295}
@@ -1731,7 +1722,6 @@ MonoBehaviour:
   - {fileID: 119172246164064078}
   - {fileID: 186224753669528000}
   - {fileID: 1363219696452577460}
-  frameMaterial: 0
   frameMaterials:
   - {fileID: 2100000, guid: 48ff17368b2183547a2a7ad54e98ae9a, type: 2}
   - {fileID: 2100000, guid: cb276562e85797b4b8a05c1dab6b97da, type: 2}
@@ -1757,7 +1747,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 2768373c965d88840acbed09c278862b, type: 3}
   - {fileID: 2800000, guid: 1667bc50cd04c18419bac5e9c115cf45, type: 3}
   - {fileID: 2800000, guid: d5d057a7458e73a468af01dd8da5d70e, type: 3}
-  artwork: {fileID: 0}
   canvas: {fileID: 4766288393270094685}
 --- !u!4 &919547728264653123 stripped
 Transform:
