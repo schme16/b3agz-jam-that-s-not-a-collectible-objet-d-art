@@ -1663,6 +1663,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1715cdc36aa60a0488ba892c4087023a, type: 2}
   - {fileID: 11400000, guid: 08bad456b4be862409c7ef30deaec055, type: 2}
   - {fileID: 11400000, guid: 5b76e0fba5e8fb94d8c56a5b73a9c503, type: 2}
+  isSquare: 0
   frameOptions:
   - {fileID: 1920659980114771485}
   - {fileID: 7544538090179267477}
@@ -1677,6 +1678,14 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 6ba660dbe5b004c48b8bbb9ea187e760, type: 2}
   - {fileID: 2100000, guid: 48d883a727a82b045a92d213a0d0acfb, type: 2}
   - {fileID: 2100000, guid: cbf186e9e46bab744829b4a0b680d9a9, type: 2}
+  frameTransparentMaterials:
+  - {fileID: 2100000, guid: 2b4bd1fbe1909fc4587ad7e0a878905b, type: 2}
+  - {fileID: 2100000, guid: 805cf45ed1fda7f4b84a660326ec1e7a, type: 2}
+  - {fileID: 2100000, guid: 55e25a4a474b8954389e8d8c1629c8b9, type: 2}
+  - {fileID: 2100000, guid: fc3a3ce053a24c547b2f5ca4b56a28dd, type: 2}
+  - {fileID: 2100000, guid: ac3083901e2bb984a9c3f0ce05184292, type: 2}
+  - {fileID: 2100000, guid: b5bbcbc6cb114214d893d9c99d3a5753, type: 2}
+  - {fileID: 2100000, guid: 89b878052450724448cce7bb8df5ae16, type: 2}
   realArtwork:
   - {fileID: 2800000, guid: 5ccd117ba8d12cf41818e214be161bcc, type: 3}
   - {fileID: 2800000, guid: 176ae444f92571942be5258a918294ae, type: 3}
@@ -1698,6 +1707,8 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a99ca4b35f2769e4a944e2717f67a4fb, type: 3}
   - {fileID: 2800000, guid: b8bb2996e7f754e468095613793cd686, type: 3}
   canvas: {fileID: 8318289566826165289}
+  transparentCanvasMaterial: {fileID: 2100000, guid: c02c1a71559e5ce42a93818121e01bfc, type: 2}
+  useTransparentMaterials: {fileID: 0}
 --- !u!114 &6843362923991003074
 MonoBehaviour:
   m_ObjectHideFlags: 0

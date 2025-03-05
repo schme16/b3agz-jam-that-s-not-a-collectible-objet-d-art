@@ -9,12 +9,11 @@ public class NPCArtSellerScript : MonoBehaviour {
 	public GameController.Npc npc;
 	public NavMeshAgent agent;
 	public Animator animator;
+	public Transform cameraTarget;
 
 	public Transform[] paintingSpawnPositions;
 	public Transform paintingHolder;
 	public ArtObjectScript painting;
-	public GameObject paintingAPrefab;
-	public GameObject paintingBPrefab;
 	public bool leaving;
 	public bool lastLeaving;
 
@@ -42,24 +41,13 @@ public class NPCArtSellerScript : MonoBehaviour {
 		//Shorthand the game controller
 		gc = FindFirstObjectByType<GameController>();
 
-
-		//Generate a painting
-		painting = Instantiate(gc.FlipCoin() ? paintingAPrefab : paintingBPrefab, paintingHolder).GetComponent<ArtObjectScript>();
-
-		//Set its name for the animator
-		painting.name = "painting";
-
-		//Pick a spawn location
+        //Pick a spawn location
 		paintingSpawnPositionIndex = Random.Range(0, paintingSpawnPositions.Length);
 
 		//Shorthand it
 		paintingSpawnPosition = paintingSpawnPositions[paintingSpawnPositionIndex];
 
-		//Sync it to the spawn location values
-		painting.transform.position = paintingSpawnPosition.position;
-		painting.transform.rotation = paintingSpawnPosition.rotation;
-		painting.transform.localScale = paintingSpawnPosition.localScale;
-
+		painting = gc.SpawnRandomPainting(paintingHolder, paintingSpawnPosition);
 
 
 		//Set up the NPC's info
@@ -204,15 +192,16 @@ public class NPCArtSellerScript : MonoBehaviour {
 
 		//Turn the agent off
 		agent.enabled = true;
-		
+
 		gc.talking = false;
-		
+		gc.readyToTalk = false;
+
 		agent.autoBraking = false;
 		agent.stoppingDistance = 2;
 		await GoToWaypoint(gc.waypointInsideDoor);
 		await GoToWaypoint(gc.waypointLeave);
-		
-		
+
+
 		await UniTask.Delay(4000);
 		gc.SpawnNewNPC();
 		Destroy(gameObject);
@@ -222,7 +211,8 @@ public class NPCArtSellerScript : MonoBehaviour {
 	public async void LeaveWithPainting() {
 
 		gc.talking = false;
-		
+		gc.readyToTalk = false;
+
 		//Backup the pianting data
 		var paintingPosBackup = painting.transform.position;
 		var paintingRotBackup = painting.transform.rotation;
@@ -249,9 +239,9 @@ public class NPCArtSellerScript : MonoBehaviour {
 		animator.ResetTrigger("trigger");
 
 		await UniTask.Delay(900);
-		
+
 		Leave();
-		
+
 	}
 
 

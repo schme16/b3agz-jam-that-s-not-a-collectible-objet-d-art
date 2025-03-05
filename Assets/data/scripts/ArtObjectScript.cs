@@ -28,6 +28,9 @@ public class ArtObjectScript : MonoBehaviour {
 
 	//All available frame materials
 	public Material[] frameMaterials;
+	
+	//All available frame materials
+	public Material[] frameTransparentMaterials;
 
 	//The artwork texture
 	public Texture[] realArtwork;
@@ -40,6 +43,12 @@ public class ArtObjectScript : MonoBehaviour {
 
 	//The canvas element
 	public MeshRenderer canvas;
+
+	//The canvas element
+	public Material transparentCanvasMaterial;
+
+	//The canvas element
+	public bool useTransparentMaterials;
 
 	//The frame element
 	private MeshRenderer frame;
@@ -59,18 +68,6 @@ public class ArtObjectScript : MonoBehaviour {
 			//Pick some random values
 			PickRandomValues();
 		}
-
-
-		//Get the frame renderer
-		frame = frameOptions[artValues.frameOption].GetComponent<MeshRenderer>();
-
-		//Instantiate the frame material
-		frame.material = new Material(frameMaterials[artValues.frameMaterial]);
-
-		//Instantiate the canvas material
-		canvas.material = new Material(canvas.material);
-
-
 
 		Render();
 	}
@@ -158,6 +155,16 @@ public class ArtObjectScript : MonoBehaviour {
 	}
 
 	public void Render() {
+
+		//Get the frame renderer
+		frame = frameOptions[artValues.frameOption].GetComponent<MeshRenderer>();
+
+		//Instantiate the frame material
+		frame.material = new Material(useTransparentMaterials ? frameTransparentMaterials[artValues.frameMaterial] : frameMaterials[artValues.frameMaterial]);
+
+		//Instantiate the canvas material
+		canvas.material = new Material(useTransparentMaterials ? transparentCanvasMaterial :  canvas.material);
+
 
 		//Hide all non-active frames
 		foreach (var _frame in frameOptions) {

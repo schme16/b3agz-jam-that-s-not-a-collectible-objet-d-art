@@ -2,7 +2,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CI.QuickSave;
 using Cysharp.Threading.Tasks;
+using Kamgam.UGUIBlurredBackground;
 using StarterAssets;
+using Unity.Cinemachine;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using Yarn.Unity;
@@ -11,22 +14,42 @@ using Random = UnityEngine.Random;
 public class GameController : MonoBehaviour {
 
 	public Transform playerCamRoot;
+	public GameObject paintingAPrefab;
+	public GameObject paintingBPrefab;
+
+	public DeskBellScript deskBell;
+	public CinemachineRotationComposer rotationComposer;
 	public FirstPersonController firstPersonController;
 	public NPCArtSellerScript npcInConversation;
 	public StarterAssetsInputs playerInputs;
+	public CinemachineVirtualCameraBase cam;
 	public GameObject npcPrefab;
+	public bool inModelView;
+	public bool inlastModelView;
 	public bool readyToTalk;
 	public bool inTalkTrigger;
+	public bool inBellTrigger;
 	public bool talking;
-	public bool canInteract;
-	private bool lastCanInteract;
+	public bool canTalk;
+	private bool lastCanTalk;
+	public bool canPressBell;
+	private bool lastCanPressBell;
+
+	public GameObject blurCanvas;
+	public BlurredBackgroundImage blurredBG;
+	public Transform modelViewerHolder;
+	public Transform modelViewerSpawnPointPortrait;
+	public Transform modelViewerSpawnPointSquare;
+	public ArtObjectScript modelViewerPainting;
+
 
 	public Transform waypointCounter;
 	public Transform waypointInsideDoor;
 	public Transform waypointOutsideDoor;
 	public Transform waypointLeave;
 
-	public GameObject uiPressEToTalk;
+	public RectTransform uiPressEToTalk;
+	public RectTransform uiPressEToPressBell;
 
 	public DoorScript door;
 
@@ -82,8 +105,10 @@ public class GameController : MonoBehaviour {
 	}
 
 
+	async void Start() {
 
-	void Start() {
+		//TODO: DEBUG
+		//inModelView = true;
 
 		collectedPortraitArt = new List<Art>();
 		collectedSquareArt = new List<Art>();
@@ -94,63 +119,128 @@ public class GameController : MonoBehaviour {
 		names = JsonUtility.FromJson<Names>((Resources.Load("names") as TextAsset).text);
 		SpawnNewNPC();
 
+
 		//Hide the interaction text
-		uiPressEToTalk.transform.position = (uiPressEToTalk.transform.position + new Vector3(0, -7.5f, 0));
+		uiPressEToTalk.anchoredPosition = new Vector3(0, -25, 0);
+
+		cam.LookAt = playerCamRoot;
+		await UniTask.Delay(100);
 	}
 
 	// Update is called once per frame
 	void Update() {
 
-		canInteract = !talking && readyToTalk && inTalkTrigger;
+		canTalk = !talking && readyToTalk && inTalkTrigger;
+		canPressBell = !talking && inBellTrigger;
 
-		if (canInteract != lastCanInteract) {
-			if (canInteract) {
-				//uiPressEToTalk.SetActive(true);
-				Translate(uiPressEToTalk.transform, uiPressEToTalk.transform.position + new Vector3(0, 7.5f, 0), 8f, EasingFunction.Ease.EaseOutQuad);
+		if (canTalk != lastCanTalk) {
+			if (canTalk) {
+				Translate(uiPressEToTalk, new Vector3(0, 20, 0), 5f, EasingFunction.Ease.EaseOutQuad);
 
 			}
 			else {
-				//uiPressEToTalk.SetActive(false);
-				Translate(uiPressEToTalk.transform, uiPressEToTalk.transform.position + new Vector3(0, -7.5f, 0), 8f, EasingFunction.Ease.EaseOutQuad);
-
+				Translate(uiPressEToTalk, new Vector3(0, -25, 0), 5f, EasingFunction.Ease.EaseOutQuad);
 			}
 
 		}
 
-		if (uiPressEToTalk.activeSelf && Input.GetKeyDown(KeyCode.E)) {
+		if (canTalk && Input.GetKeyDown(KeyCode.E)) {
 			talking = true;
 			dialogue.StartDialogue("Start");
 		}
 
-		playerInputs.enabled = !talking;
-		playerInputs.cursorInputForLook = !talking;
-		firstPersonController.enabled = !talking;
 
-		if (talking) {
+
+		if (canPressBell != lastCanPressBell) {
+
+			if (canPressBell) {
+				Translate(uiPressEToPressBell, new Vector3(0, 20, 0), 5f, EasingFunction.Ease.EaseOutQuad);
+
+			}
+			else {
+				Translate(uiPressEToPressBell, new Vector3(0, -25, 0), 5f, EasingFunction.Ease.EaseOutQuad);
+			}
+			lastCanPressBell = canPressBell;
+		}
+
+		if (canPressBell && Input.GetKeyDown(KeyCode.E)) {
+			deskBell.RingBell();
+		}
+
+
+
+
+
+
+
+		playerInputs.enabled = !talking || !inModelView;
+		playerInputs.cursorInputForLook = !talking || !inModelView;
+		firstPersonController.enabled = !talking || !inModelView;
+
+		if (talking || inModelView) {
 			Cursor.lockState = CursorLockMode.Confined;
 		}
 		else {
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
-		lastCanInteract = canInteract;
+		lastCanTalk = canTalk;
+
+
+		if (Input.GetKeyDown(KeyCode.P)) {
+			inModelView = !inModelView;
+		}
+
+		if (inModelView != inlastModelView) {
+
+
+			if (inModelView) {
+
+				ShowModelViewer(modelViewerPainting.transform);
+			}
+
+			else if (modelViewerPainting) {
+				HideModelViewer(modelViewerPainting.transform);
+			}
+
+
+			inlastModelView = inModelView;
+		}
 
 	}
 
-	public void LoadCollectedArtwork() {
+	public ArtObjectScript SpawnRandomPainting(Transform paintingHolder, Transform paintingSpawnPosition, string name = "painting") {
 
+		//Generate a painting
+		var painting = Instantiate(FlipCoin() ? paintingAPrefab : paintingBPrefab, paintingHolder).GetComponent<ArtObjectScript>();
+
+		//Set its name for the animator
+		painting.name = name;
+        
+		//Sync it to the spawn location values
+		painting.transform.position = paintingSpawnPosition.position;
+		painting.transform.rotation = paintingSpawnPosition.rotation;
+		painting.transform.localScale = paintingSpawnPosition.localScale;
+
+		return painting;
+	}
+
+	public void LoadCollectedArtwork() {
+		var settings = new QuickSaveSettings {
+			CompressionMode = CompressionMode.Gzip,
+		};
 
 		//Setting do exist, so read them
 		if (QuickSaveReader.RootExists("Settings")) {
 
 			//Read the settings
-			var settingsReader = QuickSaveReader.Create("Settings");
+			var settingsReader = QuickSaveReader.Create("Settings", settings);
 			settingsReader.TryRead<List<Art>>("collectedPortraitArt", out collectedPortraitArt);
 			settingsReader.TryRead<List<Art>>("collectedSquareArt", out collectedSquareArt);
 
 		}
 
-		//Settings don't exists, create them	
+		//Settings don't exist, create them	
 		else {
 
 			SaveCollectedArtwork();
@@ -172,7 +262,6 @@ public class GameController : MonoBehaviour {
 
 
 		foreach (var art in collectedSquareArt) {
-			Debug.Log(1111);
 			squareHangPoints[art.hangedPosition].gameObject.SetActive(true);
 			squareHangPoints[art.hangedPosition].LoadSavedArtwork(art);
 		}
@@ -183,10 +272,16 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void SaveCollectedArtwork() {
+		var settings = new QuickSaveSettings {
+			CompressionMode = CompressionMode.Gzip,
+		};
 
-		var writer = QuickSaveWriter.Create("Settings");
+		var writer = QuickSaveWriter.Create("Settings", settings);
 		writer.Write("collectedPortraitArt", collectedPortraitArt);
 		writer.Write("collectedSquareArt", collectedSquareArt);
+
+		Debug.Log($"collectedPortraitArt: {collectedPortraitArt.Count}");
+		Debug.Log($"collectedSquareArt: {collectedSquareArt.Count}");
 		writer.TryCommit();
 	}
 
@@ -208,16 +303,66 @@ public class GameController : MonoBehaviour {
 		return heads;
 	}
 
-	private void OnTriggerEnter(Collider other) {
-		inTalkTrigger = true;
-	}
-
-	private void OnTriggerExit(Collider other) {
-		inTalkTrigger = false;
-	}
-
 	public void SpawnNewNPC() {
 		Instantiate(npcPrefab);
+	}
+
+	public async void ShowModelViewer(Transform obj) {
+
+		var startScale = obj.localScale;
+
+		obj.localScale = Vector3.zero;
+
+		obj.gameObject.SetActive(true);
+
+
+		blurCanvas.gameObject.SetActive(true);
+		await BlurBackground(true, 5f);
+
+		await Scale(obj, startScale + (startScale * 0.1f), 3.5f);
+		await Scale(obj, startScale, 3f);
+
+	}
+
+	public async void HideModelViewer(Transform obj) {
+
+		var startScale = obj.localScale;
+		await Scale(obj, startScale + (startScale * 0.10f), 3.5f);
+		await Scale(obj, Vector3.zero, 3f);
+
+		DestroyImmediate(obj.gameObject);
+
+		await BlurBackground(false, 5f);
+
+		blurCanvas.gameObject.SetActive(false);
+	}
+
+
+
+
+	public async UniTask BlurBackground(bool shouldBlur, float speed = 1.05f, EasingFunction.Ease easingFunction = EasingFunction.Ease.EaseInQuad, float blurAmount = 20) {
+
+		var t = 0f;
+		var startValue = shouldBlur ? 0 : blurAmount;
+		var endValue = shouldBlur ? blurAmount : 0;
+		var startColourValue = shouldBlur ? new Color(255, 255, 255, 0) : new Color(255, 255, 255, 120);
+		var endColourValue = shouldBlur ? new Color(255, 255, 255, 120) : new Color(255, 255, 255, 0);
+		var easeing = new EasingFunction().GetEasingFunction(easingFunction);
+
+		blurredBG.Strength = startValue;
+		blurredBG.color = startColourValue;
+		while (t < 1) {
+
+			//Set the angle
+			blurredBG.Strength = Mathf.Lerp(startValue, endValue, easeing(0, 1, t));
+			blurredBG.color = Color.Lerp(startColourValue, endColourValue, easeing(0, 1, t));
+
+			//Update the time value
+			t = Mathf.Clamp(t + (Time.deltaTime * speed), 0, 1);
+			await UniTask.Yield(PlayerLoopTiming.Update);
+		}
+
+		blurredBG.Strength = endValue;
 	}
 
 	private async Task<int> getHangerPoint(ArtObjectScript[] objects, List<Art> collectedArt) {
@@ -315,6 +460,29 @@ public class GameController : MonoBehaviour {
 
 
 
+	public async UniTask Translate(RectTransform trans, Vector3 destination, float speed = 1.05f, EasingFunction.Ease easingFunction = EasingFunction.Ease.EaseInQuad) {
+
+
+		float t = 0f;
+		var startValue = trans.anchoredPosition;
+
+		var easeing = new EasingFunction().GetEasingFunction(easingFunction);
+
+		while (t < 1) {
+
+			//Set the angle
+			trans.anchoredPosition = Vector3.Lerp(startValue, destination, easeing(0, 1, t));
+
+			//Update the time value
+			t = Mathf.Clamp(t + (Time.deltaTime * speed), 0, 1);
+			await UniTask.Yield(PlayerLoopTiming.Update);
+		}
+
+		trans.anchoredPosition = destination;
+	}
+
+
+
 
 
 
@@ -323,6 +491,10 @@ public class GameController : MonoBehaviour {
 		var gc = FindFirstObjectByType<GameController>();
 		gc.yarnStorage.TryGetValue<float>($"$askingPrice", out var purchasePrice);
 		Debug.Log($"Purchased for {purchasePrice}!");
+
+
+		gc.readyToTalk = false;
+
 		gc.npcInConversation.Leave();
 		var artValues = gc.npcInConversation.painting.artValues;
 		await gc.Scale(gc.npcInConversation.painting.transform, gc.npcInConversation.painting.transform.localScale + (gc.npcInConversation.painting.transform.localScale * 0.1f), 5.5f);
@@ -339,6 +511,8 @@ public class GameController : MonoBehaviour {
 		else {
 			artValues.hangedPosition = await gc.getHangerPoint(gc.portraitHangPoints, gc.collectedPortraitArt);
 			hangSlot = gc.portraitHangPoints[artValues.hangedPosition];
+
+			gc.collectedPortraitArt.Add(artValues);
 		}
 
 		gc.SaveCollectedArtwork();
@@ -349,21 +523,103 @@ public class GameController : MonoBehaviour {
 		hangSlot.gameObject.SetActive(true);
 		hangSlot.LoadSavedArtwork(artValues);
 
+		gc.cam.LookAt = hangSlot.transform;
 		await UniTask.Delay(1000);
-		await gc.Scale(hangSlot.transform, startScale + (gc.npcInConversation.painting.transform.localScale * 0.1f), 5.5f);
-		await gc.Scale(hangSlot.transform, startScale, 5.01f);
+
+		await gc.Scale(hangSlot.transform, startScale + (startScale * 0.25f), 3.5f);
+		await gc.Scale(hangSlot.transform, startScale, 3.01f);
 
 		Destroy(gc.npcInConversation.painting);
 
+		await UniTask.Delay(1000);
+
+
+
+		gc.cam.LookAt = gc.playerCamRoot;
+
+		// Reset player's camera root rotation
+		gc.playerCamRoot.eulerAngles = new Vector3(0, gc.playerCamRoot.eulerAngles.y, gc.playerCamRoot.eulerAngles.z);
+
+		await UniTask.Delay(500);
+
+
+		gc.playerCamRoot.eulerAngles = new Vector3(0, gc.playerCamRoot.eulerAngles.y, gc.playerCamRoot.eulerAngles.z);
+		gc.firstPersonController._cinemachineTargetPitch = 0;
+
+		await UniTask.Delay(300);
+		gc.rotationComposer.Damping = new Vector2(0, 0);
+
+
 	}
 
+
 	[YarnCommand("storm_out")]
-	public static void StormOut() {
+	public async static void StormOut() {
 		var gc = FindFirstObjectByType<GameController>();
 		Debug.Log("storm_out!");
 
+		gc.readyToTalk = false;
+
+
+
+		gc.cam.LookAt = gc.npcInConversation.cameraTarget;
+
 		gc.npcInConversation.LeaveWithPainting();
+
+		await UniTask.Delay(5000);
+
+		gc.cam.LookAt = gc.playerCamRoot;
+
+		// Reset player's camera root rotation
+		gc.playerCamRoot.eulerAngles = new Vector3(0, gc.playerCamRoot.eulerAngles.y, gc.playerCamRoot.eulerAngles.z);
+
+		await UniTask.Delay(500);
+
+
+		gc.playerCamRoot.eulerAngles = new Vector3(0, gc.playerCamRoot.eulerAngles.y, gc.playerCamRoot.eulerAngles.z);
+		gc.firstPersonController._cinemachineTargetPitch = 0;
+
+		await UniTask.Delay(300);
+		gc.rotationComposer.Damping = new Vector2(0, 0);
+
+
 	}
+
+
+	[YarnCommand("lookat")]
+	public async static void LookAt(GameObject obj) {
+		var gc = FindFirstObjectByType<GameController>();
+
+		gc.playerCamRoot.eulerAngles = new Vector3(0, gc.playerCamRoot.eulerAngles.y, gc.playerCamRoot.eulerAngles.z);
+		gc.rotationComposer.Damping = new Vector2(0.5f, 0.5f);
+
+		gc.cam.LookAt = obj.transform;
+
+	}
+
+
+	[YarnCommand("viewpainting")]
+	public async static void ViewPainting() {
+		var gc = FindFirstObjectByType<GameController>();
+
+		
+		var artValues = gc.npcInConversation.painting.artValues;
+		ArtObjectScript hangSlot;
+		if (artValues.isSquare || gc.npcInConversation.painting.isSquare) {
+			hangSlot = gc.modelViewerSpawnPointSquare.GetComponent<ArtObjectScript>();
+		}
+		else {
+			hangSlot = gc.modelViewerSpawnPointPortrait.GetComponent<ArtObjectScript>();
+		}
+		
+		
+		hangSlot.LoadSavedArtwork(artValues);
+		gc.modelViewerPainting = hangSlot;
+		gc.inModelView = true;
+		
+		
+	}
+
 
 
 }

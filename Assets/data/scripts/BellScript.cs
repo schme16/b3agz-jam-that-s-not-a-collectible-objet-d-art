@@ -30,4 +30,13 @@ public class BellScript : MonoBehaviour {
 			debounce = false;
 		}
 	}
+	
+	
+	private void OnTriggerEnter(Collider other) {
+		gc.inBellTrigger = true;
+	}
+
+	private void OnTriggerExit(Collider other) {
+		gc.inBellTrigger = false;
+	}
 }

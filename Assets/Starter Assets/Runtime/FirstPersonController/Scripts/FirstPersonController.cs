@@ -52,7 +52,7 @@ namespace StarterAssets
 		public float BottomClamp = -90.0f;
 
 		// cinemachine
-		private float _cinemachineTargetPitch;
+		public float _cinemachineTargetPitch;
 
 		// player
 		private float _speed;

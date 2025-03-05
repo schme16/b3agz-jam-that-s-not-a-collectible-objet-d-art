@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 7383248675330221737}
   - component: {fileID: 5512359966374879713}
   m_Layer: 8
-  m_Name: camera-target
+  m_Name: npc-camera-target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -848,18 +848,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 4749617736646478836}
   animator: {fileID: 5358176202957921582}
+  cameraTarget: {fileID: 3792629062500749482}
   paintingSpawnPositions:
   - {fileID: 7373942663998022559}
   - {fileID: 976119495990658163}
   - {fileID: 5108400432179077096}
   paintingHolder: {fileID: 5048064558884756858}
   painting: {fileID: 0}
-  paintingAPrefab: {fileID: 214881216503341011, guid: 89e099b3b67670348add907b4d6810f7, type: 3}
-  paintingBPrefab: {fileID: 543021742911337465, guid: 2431215a1d827ba43af3117642d664ad, type: 3}
-  waypointCounter: {fileID: 0}
-  waypointInsideDoor: {fileID: 0}
-  waypointOutsideDoor: {fileID: 0}
-  waypointLeave: {fileID: 0}
   leaving: 0
   lastLeaving: 0
   leftEyeBrowProjector: {fileID: 7775675950496169211}

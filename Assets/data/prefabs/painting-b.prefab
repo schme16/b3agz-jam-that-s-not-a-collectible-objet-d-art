@@ -1729,6 +1729,14 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 6ba660dbe5b004c48b8bbb9ea187e760, type: 2}
   - {fileID: 2100000, guid: 48d883a727a82b045a92d213a0d0acfb, type: 2}
   - {fileID: 2100000, guid: cbf186e9e46bab744829b4a0b680d9a9, type: 2}
+  frameTransparentMaterials:
+  - {fileID: 2100000, guid: 2b4bd1fbe1909fc4587ad7e0a878905b, type: 2}
+  - {fileID: 2100000, guid: 805cf45ed1fda7f4b84a660326ec1e7a, type: 2}
+  - {fileID: 2100000, guid: 55e25a4a474b8954389e8d8c1629c8b9, type: 2}
+  - {fileID: 2100000, guid: fc3a3ce053a24c547b2f5ca4b56a28dd, type: 2}
+  - {fileID: 2100000, guid: ac3083901e2bb984a9c3f0ce05184292, type: 2}
+  - {fileID: 2100000, guid: b5bbcbc6cb114214d893d9c99d3a5753, type: 2}
+  - {fileID: 2100000, guid: 89b878052450724448cce7bb8df5ae16, type: 2}
   realArtwork:
   - {fileID: 2800000, guid: 005e782a6e89bdd41af678367c290222, type: 3}
   - {fileID: 2800000, guid: fe6d2530947651c4abe231dfe7dcb2d0, type: 3}
@@ -1748,6 +1756,8 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 1667bc50cd04c18419bac5e9c115cf45, type: 3}
   - {fileID: 2800000, guid: d5d057a7458e73a468af01dd8da5d70e, type: 3}
   canvas: {fileID: 4766288393270094685}
+  transparentCanvasMaterial: {fileID: 2100000, guid: 724aa593fbc5a354ab5c0a5fe80f4fee, type: 2}
+  useTransparentMaterials: 0
 --- !u!4 &919547728264653123 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f428ec2fda25dc14fb32fa5b492f408e, type: 3}
