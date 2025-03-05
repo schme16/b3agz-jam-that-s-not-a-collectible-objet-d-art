@@ -4465,6 +4465,17 @@ MonoBehaviour:
   - {fileID: 811614483}
   - {fileID: 811614482}
   counterPaintingHolder: {fileID: 750699934}
+  hair:
+  - {fileID: 2800000, guid: bb2b496e5405ec740b307dc98710c381, type: 3}
+  - {fileID: 2800000, guid: 2de0951483b052e4893872e44a68090a, type: 3}
+  - {fileID: 2800000, guid: 7b6e4296c95062c43b101095001a10e0, type: 3}
+  - {fileID: 2800000, guid: bfd443dcda752c642b68b96806614293, type: 3}
+  - {fileID: 2800000, guid: a04a8f4856e19d541a47df29ba5d5bcf, type: 3}
+  - {fileID: 2800000, guid: 1c9f9b38083089840ad107b666b84565, type: 3}
+  - {fileID: 2800000, guid: 01b8fa2601fa2994bac0968de7bd04fc, type: 3}
+  - {fileID: 2800000, guid: 5bd26806fd1c88547a01e9cd030fa8d4, type: 3}
+  - {fileID: 2800000, guid: d8b5a9e8d12fc564ead650381853ce77, type: 3}
+  - {fileID: 2800000, guid: d5255ec20449955458e246e181ff91b3, type: 3}
   eyebrows:
   - {fileID: 2800000, guid: 162b3d55cc8e91f46870ac1a3f12ed14, type: 3}
   - {fileID: 2800000, guid: 68785119f526fb240ad49bbf04b86761, type: 3}

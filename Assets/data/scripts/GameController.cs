@@ -70,6 +70,7 @@ public class GameController : MonoBehaviour {
 	public Transform counterPaintingHolder;
 	//public 
 
+	public Texture[] hair;
 	public Texture[] eyebrows;
 	public Texture[] eyes;
 	public Texture[] noses;

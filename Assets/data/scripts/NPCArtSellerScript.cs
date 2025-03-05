@@ -22,6 +22,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 
 
 	[Header("Face")]
+	public DecalProjector hairProjector;
 	public DecalProjector leftEyeBrowProjector;
 	public DecalProjector rightEyeBrowProjector;
 	public DecalProjector leftEyeProjector;
@@ -266,6 +267,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 	private void BuildFace() {
 
 		//Roll the die and get the face parts
+		var hair = gc.hair[Random.Range(0, gc.hair.Length)];
 		var leftEye = gc.eyes[Random.Range(0, gc.eyes.Length)];
 		var rightEye = gc.eyes[Random.Range(0, gc.eyes.Length)];
 		var leftEyebrow = gc.eyebrows[Random.Range(0, gc.eyebrows.Length)];
@@ -275,6 +277,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 
 
 		//Set the projectors to instanced materials
+		hairProjector.material = new Material(hairProjector.material);
 		leftEyeProjector.material = new Material(leftEyeProjector.material);
 		rightEyeProjector.material = new Material(rightEyeProjector.material);
 		leftEyeBrowProjector.material = new Material(leftEyeBrowProjector.material);
@@ -283,6 +286,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 		mouthProjector.material = new Material(mouthProjector.material);
 
 
+		hairProjector.material.SetTexture("Base_Map", hair);
 		leftEyeProjector.material.SetTexture("Base_Map", leftEye);
 		rightEyeProjector.material.SetTexture("Base_Map", rightEye);
 		leftEyeBrowProjector.material.SetTexture("Base_Map", leftEyebrow);
