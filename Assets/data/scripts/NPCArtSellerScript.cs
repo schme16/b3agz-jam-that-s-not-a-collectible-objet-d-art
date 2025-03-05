@@ -16,6 +16,8 @@ public class NPCArtSellerScript : MonoBehaviour {
 	public ArtObjectScript painting;
 	public bool leaving;
 	public bool lastLeaving;
+	public float bellTimer = 0;
+	public float bellInterval = 3;
 
 
 
@@ -93,6 +95,22 @@ public class NPCArtSellerScript : MonoBehaviour {
 		if (lastLeaving != leaving && leaving) {
 			lastLeaving = leaving;
 			Leave();
+		}
+
+		if (!leaving && gc.readyToTalk) {
+			if (!gc.inTalkTrigger) {
+				bellTimer += Time.deltaTime;
+
+				if (bellTimer > bellInterval) {
+					gc.deskBell.RingBell();
+					bellInterval = Mathf.Clamp(bellInterval - Random.Range(0.25f, 0.5f), 0.25f, 10);
+					bellTimer = 0;
+				}
+			}
+			else {
+				bellInterval = 3;
+				bellTimer = 0;
+			}
 		}
 	}
 

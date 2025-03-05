@@ -1,26 +1,79 @@
 ﻿using UnityEngine;
 
-public class ObjectRotate : MonoBehaviour {
-	public Vector3 startDragDir;
-	public Vector3 currentDragDir;
-	public Quaternion initialRotation;
-	public float angleFromStart;
+public class ObjectManipulation : MonoBehaviour {
+	public float rotationSpeed = 200f;
+	public float moveSpeed = 0.01f; // Reduced speed for smooth movement
+	public float zoomSpeed = 5f;
+	public float zLockPosition = 0f; // Keeps the object Z-centered
 
-	void OnMouseDown() {
-		Debug.Log(1111);
-		startDragDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+	private Vector3 _previousMousePosition;
+	private bool _isRotating = false;
+	private bool _isMoving = false;
 
-		initialRotation = transform.rotation;
+	void Start() {
+		// Ensure object starts locked on Z-axis
+		//transform.position = new Vector3(transform.position.x, transform.position.y, zLockPosition);
 	}
 
-	void OnMouseDrag() {
-		Debug.Log(2222);
-		currentDragDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+	void Update() {
+		HandleRotation();
+		//HandleTranslation();
+		HandleZoom();
+		//LockZAxis();
+	}
 
-		//gives you the angle in degrees the mouse has rotated around the object since starting to drag
-		angleFromStart = Vector3.Angle(startDragDir, currentDragDir);
+	private void HandleRotation() {
+		if (Input.GetMouseButtonDown(0)) {
+			_isRotating = true;
+			_previousMousePosition = Input.mousePosition;
+		}
+		if (Input.GetMouseButtonUp(0)) {
+			_isRotating = false;
+		}
 
-		transform.rotation = initialRotation;
-		transform.Rotate(0.0f, angleFromStart, 0.0f);
+		if (_isRotating) {
+			Vector3 mouseDelta = (Input.mousePosition - _previousMousePosition) * Time.deltaTime;
+
+			float rotX = mouseDelta.y * rotationSpeed;
+			float rotY = -mouseDelta.x * rotationSpeed;
+
+			transform.Rotate(Vector3.right, rotX, Space.Self);
+			transform.Rotate(Vector3.up, rotY, Space.World);
+
+			_previousMousePosition = Input.mousePosition;
+		}
+	}
+
+	private void HandleTranslation() {
+		
+		if (Input.GetMouseButtonDown(1)) {
+			_isMoving = true;
+			_previousMousePosition = Input.mousePosition;
+		}
+		if (Input.GetMouseButtonUp(1)) {
+			_isMoving = false;
+		}
+
+		if (_isMoving) {
+			Vector3 mouseDelta = (Input.mousePosition - _previousMousePosition) * moveSpeed * Time.deltaTime;
+
+			// Move in local X and Y
+			Vector3 localMove = transform.right * mouseDelta.x + transform.up * mouseDelta.y;
+			transform.position += localMove;
+
+			_previousMousePosition = Input.mousePosition;
+		}
+	}
+
+	private void HandleZoom() {
+		float scroll = Input.GetAxis("Mouse ScrollWheel");
+		if (scroll != 0) {
+			transform.position += transform.forward * scroll * zoomSpeed;
+		}
+	}
+
+	private void LockZAxis() {
+		// Keep object centered on the Z-axis
+		transform.position = new Vector3(transform.position.x, transform.position.y, zLockPosition);
 	}
 }

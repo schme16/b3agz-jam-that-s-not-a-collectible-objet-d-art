@@ -4,6 +4,7 @@ using CI.QuickSave;
 using Cysharp.Threading.Tasks;
 using Kamgam.UGUIBlurredBackground;
 using StarterAssets;
+using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -34,6 +35,10 @@ public class GameController : MonoBehaviour {
 	private bool lastCanTalk;
 	public bool canPressBell;
 	private bool lastCanPressBell;
+
+
+	public TextMeshProUGUI uiRegisterText;
+	public AudioClip sfxRegisterChime;
 
 	public GameObject blurCanvas;
 	public BlurredBackgroundImage blurredBG;
@@ -107,8 +112,8 @@ public class GameController : MonoBehaviour {
 
 	async void Start() {
 
-		//TODO: DEBUG
-		//inModelView = true;
+
+		uiRegisterText.SetText("$0.00");
 
 		collectedPortraitArt = new List<Art>();
 		collectedSquareArt = new List<Art>();
@@ -216,7 +221,7 @@ public class GameController : MonoBehaviour {
 
 		//Set its name for the animator
 		painting.name = name;
-        
+
 		//Sync it to the spawn location values
 		painting.transform.position = paintingSpawnPosition.position;
 		painting.transform.rotation = paintingSpawnPosition.rotation;
@@ -309,7 +314,16 @@ public class GameController : MonoBehaviour {
 
 	public async void ShowModelViewer(Transform obj) {
 
+		obj.localEulerAngles = new Vector3(0, 180, 0);
+
 		var startScale = obj.localScale;
+		if (obj.localScale.x > 0) {
+			obj.GetComponent<ArtObjectScript>().initialScale = startScale;
+		}
+		else {
+			startScale = obj.GetComponent<ArtObjectScript>().initialScale;
+
+		}
 
 		obj.localScale = Vector3.zero;
 
@@ -324,17 +338,26 @@ public class GameController : MonoBehaviour {
 
 	}
 
-	public async void HideModelViewer(Transform obj) {
+	public async UniTask HideModelViewer(Transform obj) {
 
 		var startScale = obj.localScale;
+		if (obj.localScale.x > 0) {
+			obj.GetComponent<ArtObjectScript>().initialScale = obj.localScale;
+		}
 		await Scale(obj, startScale + (startScale * 0.10f), 3.5f);
 		await Scale(obj, Vector3.zero, 3f);
 
-		DestroyImmediate(obj.gameObject);
 
 		await BlurBackground(false, 5f);
 
 		blurCanvas.gameObject.SetActive(false);
+	}
+
+	public async void ReturnToDialogueOptions() {
+		//await HideModelViewer(modelViewerPainting.transform);
+		inModelView = false;
+		await UniTask.Delay(1000);
+		dialogue.StartDialogue($"Options{Random.Range(1, 4)}");
 	}
 
 
@@ -492,6 +515,10 @@ public class GameController : MonoBehaviour {
 		gc.yarnStorage.TryGetValue<float>($"$askingPrice", out var purchasePrice);
 		Debug.Log($"Purchased for {purchasePrice}!");
 
+		gc.uiRegisterText.SetText($"${purchasePrice}.00");
+
+		gc.audioSource.PlayOneShot(gc.sfxRegisterChime);
+
 
 		gc.readyToTalk = false;
 
@@ -550,6 +577,8 @@ public class GameController : MonoBehaviour {
 		gc.rotationComposer.Damping = new Vector2(0, 0);
 
 
+		await UniTask.Delay(4000);
+		gc.uiRegisterText.SetText($"$0.00");
 	}
 
 
@@ -583,6 +612,7 @@ public class GameController : MonoBehaviour {
 		gc.rotationComposer.Damping = new Vector2(0, 0);
 
 
+
 	}
 
 
@@ -602,7 +632,7 @@ public class GameController : MonoBehaviour {
 	public async static void ViewPainting() {
 		var gc = FindFirstObjectByType<GameController>();
 
-		
+
 		var artValues = gc.npcInConversation.painting.artValues;
 		ArtObjectScript hangSlot;
 		if (artValues.isSquare || gc.npcInConversation.painting.isSquare) {
@@ -611,13 +641,13 @@ public class GameController : MonoBehaviour {
 		else {
 			hangSlot = gc.modelViewerSpawnPointPortrait.GetComponent<ArtObjectScript>();
 		}
-		
-		
+
+
 		hangSlot.LoadSavedArtwork(artValues);
 		gc.modelViewerPainting = hangSlot;
 		gc.inModelView = true;
-		
-		
+
+
 	}
 
 

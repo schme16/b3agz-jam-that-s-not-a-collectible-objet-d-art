@@ -1727,6 +1727,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: cb276562e85797b4b8a05c1dab6b97da, type: 2}
   - {fileID: 2100000, guid: 1458781d898fa7047af0ddc48357a7fa, type: 2}
   - {fileID: 2100000, guid: 6ba660dbe5b004c48b8bbb9ea187e760, type: 2}
+  - {fileID: 2100000, guid: a892893704394b14c9e8e3d2833f9fd1, type: 2}
   - {fileID: 2100000, guid: 48d883a727a82b045a92d213a0d0acfb, type: 2}
   - {fileID: 2100000, guid: cbf186e9e46bab744829b4a0b680d9a9, type: 2}
   frameTransparentMaterials:

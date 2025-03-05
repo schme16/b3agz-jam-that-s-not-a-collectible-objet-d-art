@@ -34,6 +34,7 @@ public class ArtObjectScript : MonoBehaviour {
 
 	//The artwork texture
 	public Texture[] realArtwork;
+	public Vector3 initialScale;
 
 	//The artwork texture
 	public Texture[] fakeArtwork;
@@ -60,6 +61,8 @@ public class ArtObjectScript : MonoBehaviour {
 
 		//Get the game controller
 		gc = FindFirstObjectByType<GameController>();
+
+		initialScale = transform.localScale;
 
 
 		//Not a preset artwork, aka saved and loaded artwork?
