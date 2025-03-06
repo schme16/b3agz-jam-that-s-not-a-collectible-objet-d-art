@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using CI.QuickSave;
 using Cysharp.Threading.Tasks;
+using data.scripts;
 using Kamgam.UGUIBlurredBackground;
 using StarterAssets;
 using TMPro;
@@ -17,6 +20,7 @@ public class GameController : MonoBehaviour {
 	public Transform playerCamRoot;
 	public GameObject paintingAPrefab;
 	public GameObject paintingBPrefab;
+	public List<LedgerScript> ledgers;
 
 	public DeskBellScript deskBell;
 	public CinemachineRotationComposer rotationComposer;
@@ -25,6 +29,8 @@ public class GameController : MonoBehaviour {
 	public StarterAssetsInputs playerInputs;
 	public CinemachineVirtualCameraBase cam;
 	public GameObject npcPrefab;
+	[Range(0, 10f)]
+	public float hangedPaintingHitDistance;
 	public bool inModelView;
 	public bool inlastModelView;
 	public bool readyToTalk;
@@ -33,19 +39,29 @@ public class GameController : MonoBehaviour {
 	public bool talking;
 	public bool canTalk;
 	private bool lastCanTalk;
-	public bool canPressBell;
-	private bool lastCanPressBell;
 
 
-	public TextMeshProUGUI uiRegisterText;
+
+
+	[Header("Interactable stuff")]
+	public InteractableScript canInteract;
+	private InteractableScript lastCanInteract;
+	public RectTransform uiPressEToPressBell;
+	public Transform currentHitObject;
+
+
+
+
+	private Transform currentModel;
 	public AudioClip sfxRegisterChime;
 
 	public GameObject blurCanvas;
 	public BlurredBackgroundImage blurredBG;
 	public Transform modelViewerHolder;
+	public Transform ledgerModelView;
 	public Transform modelViewerSpawnPointPortrait;
 	public Transform modelViewerSpawnPointSquare;
-	public ArtObjectScript modelViewerPainting;
+	public Transform modelViewerPainting;
 
 
 	public Transform waypointCounter;
@@ -53,8 +69,10 @@ public class GameController : MonoBehaviour {
 	public Transform waypointOutsideDoor;
 	public Transform waypointLeave;
 
+	public TextMeshProUGUI uiRegisterText;
+	public GameObject uiBackToDialogue;
+	public GameObject uiExitModelViewer;
 	public RectTransform uiPressEToTalk;
-	public RectTransform uiPressEToPressBell;
 
 	public DoorScript door;
 
@@ -67,8 +85,13 @@ public class GameController : MonoBehaviour {
 	public ArtObjectScript[] squareHangPoints;
 	public List<Art> collectedPortraitArt;
 	public List<Art> collectedSquareArt;
+	public List<Sale> purchases;
+	public List<JournalEntryScript> journalEntries;
 	public Transform counterPaintingHolder;
-	//public 
+	public AudioClip sfxAnsweringMachineBip;
+	public AudioClip sfxAnsweringMachineBeeep;
+	public VoiceActingScript va;
+
 
 	public Texture[] hair;
 	public Texture[] eyebrows;
@@ -77,14 +100,24 @@ public class GameController : MonoBehaviour {
 	public Texture[] mouths;
 
 
-
-
 	public struct Names {
 		public string[] first;
 		public string[] middle;
 		public string[] last;
 	}
 
+	[Serializable]
+	public struct Sale {
+		public string type;
+		public string npcsName;
+		public string artistsName;
+		public int salePrice;
+		public int realAValue;
+		public int profit;
+		public bool isFake;
+	}
+
+	[Serializable]
 	public struct Art {
 		public string signatureName;
 		public string artistsRealName;
@@ -110,9 +143,12 @@ public class GameController : MonoBehaviour {
 		public Art artPiece;
 	}
 
+	public struct AnsweringMachineMessage {
+		public AudioClip audio;
+	}
+
 
 	async void Start() {
-
 
 		uiRegisterText.SetText("$0.00");
 
@@ -121,8 +157,10 @@ public class GameController : MonoBehaviour {
 
 		LoadCollectedArtwork();
 
+		LoadPurchases();
 
 		names = JsonUtility.FromJson<Names>((Resources.Load("names") as TextAsset).text);
+
 		SpawnNewNPC();
 
 
@@ -136,8 +174,7 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-		canTalk = !talking && readyToTalk && inTalkTrigger;
-		canPressBell = !talking && inBellTrigger;
+		/*canTalk = !talking && readyToTalk && inTalkTrigger;
 
 		if (canTalk != lastCanTalk) {
 			if (canTalk) {
@@ -151,26 +188,29 @@ public class GameController : MonoBehaviour {
 		}
 
 		if (canTalk && Input.GetKeyDown(KeyCode.E)) {
-			talking = true;
-			dialogue.StartDialogue("Start");
-		}
+			
+		}*/
 
 
 
-		if (canPressBell != lastCanPressBell) {
+		if (canInteract != lastCanInteract) {
 
-			if (canPressBell) {
+
+			if (canInteract) {
 				Translate(uiPressEToPressBell, new Vector3(0, 20, 0), 5f, EasingFunction.Ease.EaseOutQuad);
 
 			}
 			else {
 				Translate(uiPressEToPressBell, new Vector3(0, -25, 0), 5f, EasingFunction.Ease.EaseOutQuad);
+				canInteract = null;
 			}
-			lastCanPressBell = canPressBell;
+
+
+			lastCanInteract = canInteract;
 		}
 
-		if (canPressBell && Input.GetKeyDown(KeyCode.E)) {
-			deskBell.RingBell();
+		if (canInteract && Input.GetKeyDown(KeyCode.E)) {
+			canInteract.Interact();
 		}
 
 
@@ -179,9 +219,8 @@ public class GameController : MonoBehaviour {
 
 
 
-		playerInputs.enabled = !talking || !inModelView;
-		playerInputs.cursorInputForLook = !talking || !inModelView;
-		firstPersonController.enabled = !talking || !inModelView;
+		playerInputs.cursorInputForLook = !talking && !inModelView;
+		firstPersonController.enabled = !talking && !inModelView;
 
 		if (talking || inModelView) {
 			Cursor.lockState = CursorLockMode.Confined;
@@ -192,21 +231,52 @@ public class GameController : MonoBehaviour {
 
 		lastCanTalk = canTalk;
 
+		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out var hitInfo, hangedPaintingHitDistance)) {
 
-		if (Input.GetKeyDown(KeyCode.P)) {
-			inModelView = !inModelView;
+			if (hitInfo.transform.CompareTag("Interactable")) {
+
+				if (hitInfo.transform != currentHitObject) {
+
+					currentHitObject = hitInfo.transform;
+					var interact = currentHitObject.GetComponent<InteractableScript>();
+					if (interact is not null) {
+
+						canInteract = interact;
+						uiPressEToPressBell.GetComponent<TextMeshProUGUI>().SetText(interact.interactionText);
+					}
+					else {
+
+						canInteract = null;
+						currentHitObject = null;
+					}
+				}
+			}
+			else {
+
+				canInteract = null;
+				currentHitObject = null;
+			}
+
 		}
+		else {
+			canInteract = null;
+			currentHitObject = null;
+		}
+
+
+
+
+
 
 		if (inModelView != inlastModelView) {
 
 
 			if (inModelView) {
-
-				ShowModelViewer(modelViewerPainting.transform);
+				ShowModelViewer(modelViewerPainting);
 			}
 
 			else if (modelViewerPainting) {
-				HideModelViewer(modelViewerPainting.transform);
+				HideModelViewer(modelViewerPainting);
 			}
 
 
@@ -232,33 +302,20 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void LoadCollectedArtwork() {
-		var settings = new QuickSaveSettings {
-			CompressionMode = CompressionMode.Gzip,
-		};
 
-		//Setting do exist, so read them
-		if (QuickSaveReader.RootExists("Settings")) {
-
-			//Read the settings
-			var settingsReader = QuickSaveReader.Create("Settings", settings);
-			settingsReader.TryRead<List<Art>>("collectedPortraitArt", out collectedPortraitArt);
-			settingsReader.TryRead<List<Art>>("collectedSquareArt", out collectedSquareArt);
-
-		}
-
-		//Settings don't exist, create them	
-		else {
-
-			SaveCollectedArtwork();
-		}
+		collectedPortraitArt = LoadArtList("collectedPortraitArt");
+		collectedSquareArt = LoadArtList("collectedSquareArt");
 
 		if (collectedPortraitArt is null) {
 			collectedPortraitArt = new List<Art>();
+			SaveArtList(collectedPortraitArt, "collectedSquareArt");
 		}
 
 		if (collectedSquareArt is null) {
 			collectedSquareArt = new List<Art>();
+			SaveArtList(collectedSquareArt, "collectedSquareArt");
 		}
+
 
 
 		foreach (var art in collectedPortraitArt) {
@@ -274,21 +331,11 @@ public class GameController : MonoBehaviour {
 
 
 
-
 	}
 
 	public void SaveCollectedArtwork() {
-		var settings = new QuickSaveSettings {
-			CompressionMode = CompressionMode.Gzip,
-		};
-
-		var writer = QuickSaveWriter.Create("Settings", settings);
-		writer.Write("collectedPortraitArt", collectedPortraitArt);
-		writer.Write("collectedSquareArt", collectedSquareArt);
-
-		Debug.Log($"collectedPortraitArt: {collectedPortraitArt.Count}");
-		Debug.Log($"collectedSquareArt: {collectedSquareArt.Count}");
-		writer.TryCommit();
+		SaveArtList(collectedPortraitArt, "collectedPortraitArt");
+		SaveArtList(collectedSquareArt, "collectedSquareArt");
 	}
 
 	public string CreateName() {
@@ -315,15 +362,33 @@ public class GameController : MonoBehaviour {
 
 	public async void ShowModelViewer(Transform obj) {
 
-		obj.localEulerAngles = new Vector3(0, 180, 0);
+		currentModel = obj;
+
+
 
 		var startScale = obj.localScale;
-		if (obj.localScale.x > 0) {
-			obj.GetComponent<ArtObjectScript>().initialScale = startScale;
+		var art = obj.GetComponent<ArtObjectScript>();
+
+		var rotator = obj.GetComponent<ObjectManipulation>();
+		if (rotator is not null) {
+
+			obj.localEulerAngles = rotator.startRotation;
+
+			if (obj.localScale.x > 0) {
+				rotator.startScale = startScale;
+			}
+			else {
+				startScale = rotator.startScale;
+			}
+		}
+
+		if (art is not null && art.artValues.hangedPosition == -1) {
+			uiBackToDialogue.SetActive(true);
+			uiExitModelViewer.SetActive(false);
 		}
 		else {
-			startScale = obj.GetComponent<ArtObjectScript>().initialScale;
-
+			uiBackToDialogue.SetActive(false);
+			uiExitModelViewer.SetActive(true);
 		}
 
 		obj.localScale = Vector3.zero;
@@ -342,9 +407,15 @@ public class GameController : MonoBehaviour {
 	public async UniTask HideModelViewer(Transform obj) {
 
 		var startScale = obj.localScale;
-		if (obj.localScale.x > 0) {
-			obj.GetComponent<ArtObjectScript>().initialScale = obj.localScale;
+
+		var art = obj.GetComponent<ArtObjectScript>();
+		if (art is not null) {
+
+			if (obj.localScale.x > 0) {
+				obj.GetComponent<ArtObjectScript>().initialScale = obj.localScale;
+			}
 		}
+
 		await Scale(obj, startScale + (startScale * 0.10f), 3.5f);
 		await Scale(obj, Vector3.zero, 3f);
 
@@ -352,6 +423,13 @@ public class GameController : MonoBehaviour {
 		await BlurBackground(false, 5f);
 
 		blurCanvas.gameObject.SetActive(false);
+		currentModel = null;
+
+	}
+
+	public void HideModelViewer() {
+		inModelView = false;
+		//HideModelViewer(currentModel);
 	}
 
 	public async void ReturnToDialogueOptions() {
@@ -361,6 +439,113 @@ public class GameController : MonoBehaviour {
 		dialogue.StartDialogue($"Options{Random.Range(1, 4)}");
 	}
 
+
+
+	public static void SaveArtList(List<Art> artList, string key) {
+		string json = JsonUtility.ToJson(new ArtListWrapper(artList));
+		PlayerPrefs.SetString(key, json);
+		PlayerPrefs.Save();
+	}
+
+	public static List<Art> LoadArtList(string key) {
+		if (!PlayerPrefs.HasKey(key)) return new List<Art>();
+
+		string json = PlayerPrefs.GetString(key);
+		ArtListWrapper wrapper = JsonUtility.FromJson<ArtListWrapper>(json);
+		return wrapper.artworks ?? new List<Art>();
+	}
+
+	[Serializable]
+	private class ArtListWrapper {
+		public List<Art> artworks;
+		public ArtListWrapper(List<Art> artList) { artworks = artList; }
+	}
+
+
+
+
+
+	private void LoadPurchases() {
+
+		purchases = LoadPurchaseList("purchases");
+
+		if (purchases is null) {
+			purchases = new List<Sale>();
+			SavePurchaseList(purchases, "purchases");
+		}
+
+		foreach (var ledger in ledgers) {
+			ledger.Render();
+		}
+	}
+
+	public void SavePurchases() {
+		SavePurchaseList(purchases, "purchases");
+		LoadPurchases();
+	}
+
+	public static void SavePurchaseList(List<Sale> artList, string key) {
+		string json = JsonUtility.ToJson(new PurchaseListWrapper(artList));
+		PlayerPrefs.SetString(key, json);
+		PlayerPrefs.Save();
+	}
+
+	public static List<Sale> LoadPurchaseList(string key) {
+		if (!PlayerPrefs.HasKey(key)) return new List<Sale>();
+
+		string json = PlayerPrefs.GetString(key);
+		PurchaseListWrapper wrapper = JsonUtility.FromJson<PurchaseListWrapper>(json);
+		return wrapper.artworks ?? new List<Sale>();
+	}
+
+	[Serializable]
+	private class PurchaseListWrapper {
+		public List<Sale> artworks;
+		public PurchaseListWrapper(List<Sale> artList) { artworks = artList; }
+	}
+
+
+
+
+
+
+	public async void ViewPaintingFromInteract() {
+		var gc = FindFirstObjectByType<GameController>();
+
+		if (currentHitObject is not null) {
+
+			var art = currentHitObject.GetComponent<ArtObjectScript>();
+
+			if (art is not null) {
+
+
+				var artValues = art.artValues;
+				ArtObjectScript hangSlot;
+				if (artValues.isSquare || art.isSquare) {
+					hangSlot = gc.modelViewerSpawnPointSquare.GetComponent<ArtObjectScript>();
+				}
+				else {
+					hangSlot = gc.modelViewerSpawnPointPortrait.GetComponent<ArtObjectScript>();
+				}
+
+				hangSlot.LoadSavedArtwork(artValues);
+				gc.modelViewerPainting = hangSlot.transform;
+				gc.inModelView = true;
+			}
+		}
+
+
+	}
+
+	public async void ViewLedgerFromInteract() {
+		var gc = FindFirstObjectByType<GameController>();
+
+
+		gc.modelViewerPainting = ledgerModelView;
+		gc.inModelView = true;
+
+
+	}
 
 
 
@@ -389,7 +574,7 @@ public class GameController : MonoBehaviour {
 		blurredBG.Strength = endValue;
 	}
 
-	private async Task<int> getHangerPoint(ArtObjectScript[] objects, List<Art> collectedArt) {
+	private async Task<int> getHangerPoint(ArtObjectScript[] objects, List<GameController.Art> collectedArt) {
 
 		//These are points that are valid to pick from
 		var validPoints = new List<ArtObjectScript>();
@@ -461,7 +646,7 @@ public class GameController : MonoBehaviour {
 	}
 
 
-	public async UniTask Translate(Transform trans, Vector3 destination, float speed = 1.05f, EasingFunction.Ease easingFunction = EasingFunction.Ease.EaseInQuad) {
+	public async UniTask Translate(Transform trans, Vector3 destination, float speed = 1.05f, EasingFunction.Ease easingFunction = EasingFunction.Ease.EaseInQuad, CancellationToken cancellationToken = default) {
 
 
 		float t = 0f;
@@ -476,7 +661,7 @@ public class GameController : MonoBehaviour {
 
 			//Update the time value
 			t = Mathf.Clamp(t + (Time.deltaTime * speed), 0, 1);
-			await UniTask.Yield(PlayerLoopTiming.Update);
+			await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken);
 		}
 
 		trans.position = destination;
@@ -504,6 +689,9 @@ public class GameController : MonoBehaviour {
 
 		trans.anchoredPosition = destination;
 	}
+
+
+
 
 
 
@@ -544,6 +732,19 @@ public class GameController : MonoBehaviour {
 		}
 
 		gc.SaveCollectedArtwork();
+
+		gc.purchases.Add(new Sale {
+			type = "BUY",
+			npcsName = gc.npcInConversation.npc.name,
+			artistsName = artValues.artistsRealName,
+			salePrice = (int)purchasePrice,
+			realAValue = artValues.actualValue,
+			profit = (int)purchasePrice - artValues.actualValue,
+			isFake = artValues.isFake,
+
+		});
+
+		gc.SavePurchases();
 
 
 		var startScale = hangSlot.transform.localScale;
@@ -645,12 +846,11 @@ public class GameController : MonoBehaviour {
 
 
 		hangSlot.LoadSavedArtwork(artValues);
-		gc.modelViewerPainting = hangSlot;
+		gc.modelViewerPainting = hangSlot.transform;
 		gc.inModelView = true;
 
 
 	}
-
 
 
 }

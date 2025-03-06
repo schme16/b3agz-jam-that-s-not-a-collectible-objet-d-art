@@ -3,12 +3,13 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class InteractableScript : MonoBehaviour {
+public class BellScript : MonoBehaviour {
 
 	public AudioSource bellAudioSource;
 	public AudioClip[] sfxDoorBells;
 	private bool debounce;
 	private GameController gc;
+
 
 	void Start() {
 		gc = FindFirstObjectByType<GameController>();

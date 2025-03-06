@@ -288,7 +288,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 
 		hairProjector.material.SetTexture("Base_Map", hair);
 		leftEyeProjector.material.SetTexture("Base_Map", leftEye);
-		rightEyeProjector.material.SetTexture("Base_Map", rightEye);
+		rightEyeProjector.material.SetTexture("Base_Map", leftEye);
 		leftEyeBrowProjector.material.SetTexture("Base_Map", leftEyebrow);
 		rightEyeBrowProjector.material.SetTexture("Base_Map", rightEyebrow);
 		noseProjector.material.SetTexture("Base_Map", nose);

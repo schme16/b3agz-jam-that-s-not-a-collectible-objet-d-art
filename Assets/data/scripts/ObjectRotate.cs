@@ -5,6 +5,8 @@ public class ObjectManipulation : MonoBehaviour {
 	public float moveSpeed = 0.01f; // Reduced speed for smooth movement
 	public float zoomSpeed = 5f;
 	public float zLockPosition = 0f; // Keeps the object Z-centered
+	public Vector3 startRotation; // Keeps the object Z-centered
+	public Vector3 startScale; // Keeps the object Z-centered
 
 	private Vector3 _previousMousePosition;
 	private bool _isRotating = false;

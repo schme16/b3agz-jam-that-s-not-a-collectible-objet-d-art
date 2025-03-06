@@ -880,6 +880,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dae0ca9e0ca3ace43b7e06c5f7c8d5b2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5358176202957921582}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dae0ca9e0ca3ace43b7e06c5f7c8d5b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6737661876602843882}
   m_SourcePrefab: {fileID: 100100000, guid: dae0ca9e0ca3ace43b7e06c5f7c8d5b2, type: 3}
 --- !u!4 &4981306164648258074 stripped
 Transform:
@@ -1017,6 +1020,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6737661876602843882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5650600519960555680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368ce811330f4dc39173a469e461f304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionText: Talk (E)
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &5716218977334188673
 PrefabInstance:
   m_ObjectHideFlags: 0
