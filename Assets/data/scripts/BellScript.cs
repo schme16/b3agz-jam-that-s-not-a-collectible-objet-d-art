@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BellScript : MonoBehaviour {
+public class InteractableScript : MonoBehaviour {
 
 	public AudioSource bellAudioSource;
 	public AudioClip[] sfxDoorBells;
