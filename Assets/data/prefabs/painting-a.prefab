@@ -1714,19 +1714,19 @@ MonoBehaviour:
   initialScale: {x: 0, y: 0, z: 0}
   fakeArtwork:
   - {fileID: 2800000, guid: 3570f15a9b5fe5f4d95352a36fec1136, type: 3}
+  - {fileID: 2800000, guid: 68f10dd99edaa184297bc75ed17e6d71, type: 3}
   - {fileID: 2800000, guid: 7ab55b0f87cc9674eb537775a02f9e66, type: 3}
+  - {fileID: 2800000, guid: 8e4b90adce0a7184b81c86d4a7164c62, type: 3}
   - {fileID: 2800000, guid: 6dfd8dfaad856f149b5e7c5f375b2803, type: 3}
   - {fileID: 2800000, guid: 3511c4500ee30d946ad9b1497a6c1d9f, type: 3}
+  - {fileID: 2800000, guid: d3c224e5b99ef0c43af80707e1376e72, type: 3}
   - {fileID: 2800000, guid: 8c90963ccf150a74f9f1d87ba58da538, type: 3}
   - {fileID: 2800000, guid: 4331c6152c427bc4ca9b1b9b64851c82, type: 3}
+  - {fileID: 2800000, guid: 93f4753fcf4739343a08db5fffc3cdc2, type: 3}
   - {fileID: 2800000, guid: 841533e0615c3ff4f9ae986194cd17a3, type: 3}
   - {fileID: 2800000, guid: a99ca4b35f2769e4a944e2717f67a4fb, type: 3}
-  - {fileID: 2800000, guid: b8bb2996e7f754e468095613793cd686, type: 3}
   - {fileID: 2800000, guid: aae78905c08ffbe489bc2e0f62075b24, type: 3}
-  - {fileID: 2800000, guid: 93f4753fcf4739343a08db5fffc3cdc2, type: 3}
-  - {fileID: 2800000, guid: d3c224e5b99ef0c43af80707e1376e72, type: 3}
-  - {fileID: 2800000, guid: 8e4b90adce0a7184b81c86d4a7164c62, type: 3}
-  - {fileID: 2800000, guid: 68f10dd99edaa184297bc75ed17e6d71, type: 3}
+  - {fileID: 2800000, guid: b8bb2996e7f754e468095613793cd686, type: 3}
   canvas: {fileID: 8318289566826165289}
   transparentCanvasMaterial: {fileID: 2100000, guid: c02c1a71559e5ce42a93818121e01bfc, type: 2}
   useTransparentMaterials: 0

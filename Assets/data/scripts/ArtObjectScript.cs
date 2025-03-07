@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -120,11 +119,11 @@ public class ArtObjectScript : MonoBehaviour {
 		//Pick a font
 		randomArtValues.signatureFont = Random.Range(0, signatureFonts.Length);
 
-		randomArtValues.whichArtwork = Random.Range(0, realArtwork.Length);
 
 		//Is the artwork fake? (but not a good fake)
 		if (randomArtValues.isFake && !randomArtValues.isGoodFake) {
-			
+
+			randomArtValues.whichArtwork = Random.Range(0, fakeArtwork.Length);
 			artwork = fakeArtwork[randomArtValues.whichArtwork];
 			randomArtValues.actualValue = Random.Range(50, 250);
 			
@@ -135,6 +134,7 @@ public class ArtObjectScript : MonoBehaviour {
 		//Real art, or good fake
 		else {
 			
+			randomArtValues.whichArtwork = Random.Range(0, realArtwork.Length);
 			artwork = realArtwork[randomArtValues.whichArtwork];
 			randomArtValues.actualValue = Random.Range(250, 750);
 

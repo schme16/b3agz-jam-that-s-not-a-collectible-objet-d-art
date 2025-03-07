@@ -283,7 +283,6 @@ title: Dialogue5
 title: Haggle
 ---
 
-<<set $dice = dice(5)>>
 <<set $askingPrice = ($askingPrice - random_range(1, $askingPrice * 0.25))>>
 
 
@@ -414,11 +413,31 @@ title: Purchased
 ---
 <<lookat painting>>
 
-<<if $askingPrice > $willAcceptPrice>>
-    {$npcName}: Hope you enjoy it as much as daddy did!
-<<else>>
-    {$npcName}: Yeah ok, well, thanks...
+<<set $dice = dice(10)>>
+<<if $actualPrice < $askingPrice>>
+    {$npcName}: Ha! Sucker
+<<elseif $dice == 1>>
+    {$npcName}: I feel a little cheated...
+<<elseif $dice == 2>>
+    {$npcName}: Enjoy!
+<<elseif $dice == 3>>
+    {$npcName}: I'm just glad to be rid of it!
+<<elseif $dice == 4>>
+    {$npcName}: *mumble* Should have asked for ${$askingPrice + 25} *mumble* 
+<<elseif $dice == 5>>
+    {$npcName}: No taksies backies! 
+<<elseif $dice == 6>>
+    {$npcName}: If the cops call, you've never heard of me! 
+<<elseif $dice == 7>>
+    {$npcName}: I'm sad to see it go, but glad to have this money, funny how life goes, huh? 
+<<elseif $dice == 8>>
+    {$npcName}: Good riddance to old junk! 
+<<elseif $dice == 9>>
+    {$npcName}: Maybe I shouldn't have sold it after all... 
+<<elseif $dice == 10>>
+    {$npcName}: Awesome, now it can make someone <i>elses</i> house look tacky!
 <<endif>>
+
 <<purchase>>
 ===
 

@@ -220,7 +220,7 @@ public class AnsweringMachineScript : MonoBehaviour {
 			audio = gc.sfxAnsweringMachineBeeep,
 		});
 
-		if (gc.currentNPC is null) {
+		if (gc.currentNPC is null || gc.currentNPC == null) {
 			
 			await UniTask.Delay(Random.Range(1000, 10000));
 			gc.SpawnNewNPC();
