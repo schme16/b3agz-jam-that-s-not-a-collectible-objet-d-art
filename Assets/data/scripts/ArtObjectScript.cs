@@ -128,7 +128,6 @@ public class ArtObjectScript : MonoBehaviour {
 			
 			
 			randomArtValues.actualValue = Random.Range(150, 350);
-			Debug.Log(33333);
 			//Pick a signature location, mandatory for low quality fakes
 			randomArtValues.signatureLocation = Random.Range(0, signatureLocations.Length);
 		}
@@ -136,7 +135,6 @@ public class ArtObjectScript : MonoBehaviour {
 		//Real art, or good fake
 		else {
 			artwork = realArtwork[randomArtValues.whichArtwork];
-			Debug.Log(44444);
 			randomArtValues.actualValue = Random.Range(250, 750);
 
 			//Pick a signature location, or leave it off entirely 

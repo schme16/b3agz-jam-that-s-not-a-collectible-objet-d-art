@@ -570,6 +570,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &210988606 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2056879672229412938, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -8413,6 +8415,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &730103874
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8462,6 +8466,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &733126742
 GameObject:
   m_ObjectHideFlags: 0
@@ -10868,6 +10874,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &811614635
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10917,6 +10925,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &816379346 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2340360333491216129, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -10971,6 +10981,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &817990714
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11020,6 +11032,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &825932311 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8601526856280751822, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -11121,9 +11135,11 @@ MonoBehaviour:
   inTalkTrigger: 0
   talking: 0
   lastTalking: 0
+  highlightColor: {r: 0, g: 0, b: 0, a: 0}
   interactScript: {fileID: 0}
   uiPressEToPressBell: {fileID: 888296743}
   currentHitObject: {fileID: 0}
+  accessibilityEnabled: 0
   sfxRegisterChime: {fileID: 8300000, guid: c2ea617d543f04949aba5002504965e1, type: 3}
   blurCanvas: {fileID: 980480400}
   blurredBG: {fileID: 913704042}
@@ -11302,14 +11318,15 @@ MonoBehaviour:
   collectedSquareArt: []
   purchases: []
   flags:
+    hasBeenLoaded: 0
     numberOfFakes: 0
     numberOfStormOuts: 0
     numberOfPurchases: 0
-    hasBeenLoaded: 0
     customerHasWalkedOut: 0
     hadGoodPurchase: 0
     hadBadPurchase: 0
     hadGoodSale: 0
+    accessibilityMode: 0
     hasQueued_vaIntro: 0
     hasQueued_vaCustomerNotServed: 0
     hasQueued_vaGreatDealOnPurchase: 0
@@ -11878,6 +11895,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &872654507 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6260482065840986683, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -11938,6 +11957,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &885716990 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 361595655060160694, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -11992,6 +12013,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &888296742
 GameObject:
   m_ObjectHideFlags: 0
@@ -12182,6 +12205,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &913704040
 GameObject:
   m_ObjectHideFlags: 0
@@ -12317,6 +12342,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &922715605 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7455321467335396863, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -12382,6 +12409,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &923181947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12431,6 +12460,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &926125051 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1030810393608024295, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -12485,6 +12516,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &944361715 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5076113692695121538, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -12539,6 +12572,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &946280978 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4748112076819344983, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -12599,6 +12634,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &955969312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8420284273179873429, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -12653,6 +12690,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &965590450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12702,6 +12741,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &969754671
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12751,6 +12792,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &973017904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12800,6 +12843,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &976386283 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2322488408594302439, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -13003,6 +13048,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &989746764 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 134229009328386773, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -13057,6 +13104,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &997715183 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7358963267787924625, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -13133,6 +13182,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1006152566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2981042179446382757, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -13187,6 +13238,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1008702604 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9051474955611460792, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -13241,6 +13294,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1010829530 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5034571824187278185, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -13295,6 +13350,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1013365099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13323,6 +13380,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1037844820
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13372,6 +13431,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1044430788 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4270079450318817920, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -13426,6 +13487,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1050048024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13475,6 +13538,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1060487321
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13524,6 +13589,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!20 &1082965601 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 9005220659476430821, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
@@ -13583,6 +13650,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1098888175
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13632,6 +13701,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1102209589
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13681,6 +13752,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1113847007 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7385538983668994369, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -13987,6 +14060,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1129509600 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 176746921741634966, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -14052,6 +14127,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1147891817
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14101,6 +14178,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1151352388 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4556500061817928587, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -14155,6 +14234,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1152669895
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14204,6 +14285,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1155305086
 GameObject:
   m_ObjectHideFlags: 0
@@ -14391,6 +14474,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1165449971
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14440,6 +14525,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1169102836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14468,6 +14555,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1172487120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6172356076003682056, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -14522,6 +14611,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1176173641
 GameObject:
   m_ObjectHideFlags: 0
@@ -14606,6 +14697,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1194502906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14634,6 +14727,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1195830817 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1940868877460032995, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -14688,6 +14783,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1199822343 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6400405500137784364, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -14742,6 +14839,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1203234698 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3154317880415002130, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -14796,6 +14895,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1205650429
 GameObject:
   m_ObjectHideFlags: 0
@@ -14916,6 +15017,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1214569483
 GameObject:
   m_ObjectHideFlags: 0
@@ -15062,6 +15165,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1238358928 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 252981846781988206, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -15127,6 +15232,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1245087640 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8818711661239187439, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -15181,6 +15288,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1246830469 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4127930319463075305, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -15235,6 +15344,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1250436465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15284,6 +15395,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1265973858 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3621654878583355283, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -15338,6 +15451,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1275810559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15366,6 +15481,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1284065169 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1378006462849069377, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -15426,6 +15543,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1286161677 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 773940461896873523, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -15480,6 +15599,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1296102817 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 721113667138563216, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -15545,6 +15666,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1321332474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 681768542470718359, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -15599,6 +15722,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1327261389 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4749605624932642732, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -15653,6 +15778,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1329520890 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1444944885316591431, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -15707,6 +15834,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1335793544
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15756,6 +15885,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1336852136
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15805,6 +15936,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1345544296 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2087409107873513812, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -15870,6 +16003,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1348413445
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15919,6 +16054,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1357113269 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7323599279286778268, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -15984,6 +16121,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1377910045
 GameObject:
   m_ObjectHideFlags: 0
@@ -16119,6 +16258,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1391459535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16168,6 +16309,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1400122050 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8071191935518255096, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -16244,6 +16387,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1426661365 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2367366891012085933, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -16309,6 +16454,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1434925335 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5436244589374534754, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16363,6 +16510,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1446752167 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6567694871153480590, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16417,6 +16566,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1446866717 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1291333192506199399, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16471,6 +16622,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1449867447 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5851299932018912724, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16525,6 +16678,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1450244491 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6642786341463807093, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16579,6 +16734,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1456244288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16607,6 +16764,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1466473280 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7353640107501385489, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16661,6 +16820,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1466942957 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4219981113847684996, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -16737,6 +16898,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1498372751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16765,6 +16928,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1502549762 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8644851976582437022, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16819,6 +16984,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1507605414 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8576580288940511831, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16873,6 +17040,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1509157628 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7466229174944817721, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -16927,6 +17096,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1515929049
 GameObject:
   m_ObjectHideFlags: 0
@@ -17117,6 +17288,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1535898590
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17166,6 +17339,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1538057277 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2139431035146215203, guid: 9c9034f79bc94a444b62d4ff390943c0, type: 3}
@@ -17199,6 +17374,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1538057284
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17274,6 +17451,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1552406130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3256537105280345546, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -17328,6 +17507,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1558553823 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2339354879550549654, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -17382,6 +17563,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1559738332 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7105342900128649701, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -17436,6 +17619,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1564346755 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 860199527275795615, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -17490,6 +17675,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1564853525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17539,6 +17726,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1566855430 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7440243953853984163, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -17593,6 +17782,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1570394231 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3347895728192239919, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -17653,6 +17844,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1575034741 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8738512258747893326, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -17707,6 +17900,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1589418811 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 882145413055338333, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -17925,6 +18120,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1001 &1604579933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17935,7 +18132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2f5e4c6ff9c708846982484694b941ab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.5503552
+      value: 3.978
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2f5e4c6ff9c708846982484694b941ab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17943,7 +18140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2f5e4c6ff9c708846982484694b941ab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.6123897
+      value: -0.062
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2f5e4c6ff9c708846982484694b941ab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18104,6 +18301,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!82 &1604579939
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18276,6 +18475,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1611869651
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18325,6 +18526,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1001 &1621372705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18452,6 +18655,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1641452714 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4663304575933459446, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -18517,6 +18722,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1650121243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 84033401102081938, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -18571,6 +18778,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1652284208 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2793447765380159906, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -18625,6 +18834,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1654074915 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1230554388678401728, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -18690,6 +18901,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1669120246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3066348004725814279, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -18744,6 +18957,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1683322101 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6991481723074350018, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -18809,6 +19024,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1689356539
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18858,6 +19075,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1699197485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1352749586619032262, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -19025,6 +19244,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1712036812
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19074,6 +19295,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1713931336
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19123,6 +19346,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1714430823
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19172,6 +19397,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1744157693 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2999874425929496366, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -19226,6 +19453,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1750517562
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19275,6 +19504,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1751214852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7127536817272632261, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -19329,6 +19560,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1753451322 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5175076246827570022, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -19394,6 +19627,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1788831845 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4518881983121657240, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -19448,6 +19683,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1788885241 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3319015036587206219, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -19502,6 +19739,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1791599676
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19551,6 +19790,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1793685906 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1602554625484609675, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -19644,6 +19885,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1815335170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19672,6 +19915,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1815954557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19721,6 +19966,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1826664710
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19770,6 +20017,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1827833221 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6726550872270899186, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -19824,6 +20073,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1853033849
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19873,6 +20124,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1856158566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4900527927186574726, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -19927,6 +20180,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1868177441 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2559526913867569137, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -19981,6 +20236,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1873535675 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 115781797124787, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -20046,6 +20303,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1878798503 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5954960377098595669, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -20100,6 +20359,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1915163835 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 214881216503341011, guid: 89e099b3b67670348add907b4d6810f7, type: 3}
@@ -20154,6 +20415,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1001 &1943665041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25478,6 +25741,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1947218770 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3957126044045784312, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -25532,6 +25797,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1948046376 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 235025119093869079, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -25586,6 +25853,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1954213930 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 347841729893851245, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -25640,6 +25909,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1001 &1965388988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25844,6 +26115,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1967394751 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4471774361562995407, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -25898,6 +26171,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &1969590001 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5514799814391302731, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -25937,6 +26212,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &1981128503 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2062791758710400015, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -25991,6 +26268,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1983005104
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26040,6 +26319,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &1992452512
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26089,6 +26370,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &2023245703 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2445881987327496197, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -26143,6 +26426,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &2025547667 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1202675318497823551, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -26197,6 +26482,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &2025717471 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3025067770385969847, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -26262,6 +26549,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &2032588306
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26311,6 +26600,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &2043385268 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6578328142191144218, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -26371,6 +26662,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &2056569366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26420,6 +26713,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &2059523453 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4057511728088616468, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -26480,6 +26775,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!65 &2067304447
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26529,6 +26826,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!114 &2087832988 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7277408953857104682, guid: 8f88ff00fba3f2745b571b48a111787c, type: 3}
@@ -26600,6 +26899,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &2095600986
 GameObject:
   m_ObjectHideFlags: 0
@@ -26740,6 +27041,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &2136898411 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4189094640087943643, guid: f56857c07d07f0a4dbba62b097005be6, type: 3}
@@ -26794,6 +27097,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1 &2136972934
 GameObject:
   m_ObjectHideFlags: 0

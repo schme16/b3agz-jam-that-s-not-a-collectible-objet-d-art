@@ -122,7 +122,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 					gc.yarnStorage.SetValue("$willAcceptPrice", npc.willAcceptPrice);
 
 
-					if (totalTimeRingingBell > 5 && GameController.FlipCoin()) {
+					if (totalTimeRingingBell > 15 && GameController.FlipCoin()) {
 						
 						LeaveWithPainting();
 						

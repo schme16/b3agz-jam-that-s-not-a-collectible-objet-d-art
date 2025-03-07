@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour {
 	public bool inTalkTrigger;
 	public bool talking;
 	public bool lastTalking;
+	public Color highlightColor;
 
 
 
@@ -48,6 +49,7 @@ public class GameController : MonoBehaviour {
 	private bool lastInteractScriptEnabled;
 	public RectTransform uiPressEToPressBell;
 	public Transform currentHitObject;
+	public bool accessibilityEnabled;
 
 
 
@@ -116,28 +118,23 @@ public class GameController : MonoBehaviour {
 	public struct Flags {
 
 		//Bool to check if it's been loaded
-		public int numberOfFakes;
-
-		//Bool to check if it's been loaded
-		public int numberOfStormOuts;
-
-		//Bool to check if it's been loaded
-		public int numberOfPurchases;
-
-		//Bool to check if it's been loaded
 		public bool hasBeenLoaded;
 
-		//Bool to check if it's been loaded
+		public int numberOfFakes;
+
+		public int numberOfStormOuts;
+
+		public int numberOfPurchases;
+
 		public bool customerHasWalkedOut;
 
-		//Bool to check if it's been loaded
 		public bool hadGoodPurchase;
 
-		//Bool to check if it's been loaded
 		public bool hadBadPurchase;
 
-		//Bool to check if it's been loaded
 		public bool hadGoodSale;
+
+		public bool accessibilityMode;
 
 		//This shows the message was queued
 		public bool hasQueued_vaIntro;
@@ -227,13 +224,13 @@ public class GameController : MonoBehaviour {
 			SpawnNewNPC();
 		}
 
-
 		names = JsonUtility.FromJson<Names>((Resources.Load("names") as TextAsset).text);
-
 
 
 		//Hide the interaction text
 		uiPressEToTalk.anchoredPosition = new Vector3(0, -25, 0);
+
+
 
 		cam.LookAt = playerCamRoot;
 		await UniTask.Delay(100);
@@ -246,10 +243,14 @@ public class GameController : MonoBehaviour {
 		if (interactScript != lastInteractScript || (interactScript is null && lastInteractScriptEnabled) || (interactScript is not null && interactScript.enabled != lastInteractScriptEnabled) || talking != lastTalking) {
 
 			if (interactScript is not null && interactScript.enabled && !talking) {
+				interactScript.inView = true;
 				Translate(uiPressEToPressBell, new Vector3(0, 20, 0), 5f, EasingFunction.Ease.EaseOutQuad);
 
 			}
 			else {
+				if (interactScript is not null) {
+					interactScript.inView = false;
+				}
 				Translate(uiPressEToPressBell, new Vector3(0, -25, 0), 5f, EasingFunction.Ease.EaseOutQuad);
 			}
 
@@ -291,20 +292,27 @@ public class GameController : MonoBehaviour {
 						uiPressEToPressBell.GetComponent<TextMeshProUGUI>().SetText(interact.interactionText);
 					}
 					else {
-
+						if (interactScript is not null) {
+							interactScript.inView = false;
+						}
 						interactScript = null;
 						currentHitObject = null;
 					}
 				}
 			}
 			else {
-
+				if (interactScript is not null) {
+					interactScript.inView = false;
+				}
 				interactScript = null;
 				currentHitObject = null;
 			}
 
 		}
 		else {
+			if (interactScript is not null) {
+				interactScript.inView = false;
+			}
 			interactScript = null;
 			currentHitObject = null;
 		}

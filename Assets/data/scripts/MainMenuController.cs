@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject uiContinueButton;
 	public GameObject uiNewGameButton;
 	public SceneTransitionScript SceneManager;
+	public Toggle toggle;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
@@ -35,7 +37,7 @@ public class MainMenuController : MonoBehaviour {
 
 
 		flags = SaveManager.LoadFlags();
-
+		toggle.isOn = flags.accessibilityMode;
 		uiContinueButton.SetActive(flags.hasBeenLoaded);
 
 	}
@@ -45,8 +47,31 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	public void NewGame() {
+		
+		var accessibilityState = flags.accessibilityMode;
+		
 		SaveManager.ResetAllSaves();
+		
+		flags = SaveManager.LoadFlags();
+		
+		var newFlags = flags;
+
+		newFlags.accessibilityMode = accessibilityState;
+		
+		flags = newFlags;
+		
+		SaveManager.SaveFlags(flags);
+		
 		SceneManager.ChangeSceneVoid("main");
+	}
+
+
+	public void SetAccessibilityToggle() {
+
+		var newFlags = flags;
+		newFlags.accessibilityMode = toggle.isOn;
+		flags = newFlags;
+		SaveManager.SaveFlags(flags);
 	}
 
 }

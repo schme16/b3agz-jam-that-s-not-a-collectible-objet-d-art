@@ -16,14 +16,19 @@ public class JournalEntryScript : MonoBehaviour {
 	public string textValue;
 	public string lastTextValue = "";
 	public string lastType = "-";
+	public GameController gc;
 
 
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
-			textValue = $"{artistsName}{(isFake ? " (FAKE) " : " ")}from seller {npcsName} - ${salePrice} (${profit} profit)";
+
+		//Get the game controller
+		gc = FindFirstObjectByType<GameController>();
+
+		if (gc.flags.accessibilityMode) {
+		    textValue = $"{artistsName}{(isFake ? " (FAKE) " : " ")}from seller {npcsName} - ${salePrice} (${profit} profit)";
+		}
 	}
 
-	// Update is called once per frame
 	void Update() {
 		if (artistsName.Length > 0) {
 			textValue = $"{artistsName}{(isFake ? " (FAKE) " : "")}from seller {npcsName} - ${salePrice} (${profit} profit)";
