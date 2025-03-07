@@ -20,7 +20,7 @@ public class ObjectManipulation : MonoBehaviour {
 	void Update() {
 		HandleRotation();
 		//HandleTranslation();
-		HandleZoom();
+		//HandleZoom();
 		//LockZAxis();
 	}
 

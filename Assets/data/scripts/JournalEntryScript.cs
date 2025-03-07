@@ -20,13 +20,13 @@ public class JournalEntryScript : MonoBehaviour {
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
-		textValue = $"{artistsName} ({(isFake ? "FAKE" : "")}) from seller {npcsName} - ${salePrice} ({(profit < 0 ? "-" : "")}${profit} profit)";
+			textValue = $"{artistsName}{(isFake ? " (FAKE) " : " ")}from seller {npcsName} - ${salePrice} (${profit} profit)";
 	}
 
 	// Update is called once per frame
 	void Update() {
 		if (artistsName.Length > 0) {
-			textValue = $"{artistsName} (FAKE) from seller {npcsName} - ${salePrice} (${salePrice - realAValue} profit)";
+			textValue = $"{artistsName}{(isFake ? " (FAKE) " : "")}from seller {npcsName} - ${salePrice} (${profit} profit)";
 		}
 		else {
 			textValue = "";

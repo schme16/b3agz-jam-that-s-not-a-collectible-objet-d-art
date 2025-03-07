@@ -32,11 +32,4 @@ public class DeskBellScript : MonoBehaviour {
 
 	}
 
-	private void OnTriggerEnter(Collider other) {
-		gc.inBellTrigger = true;
-	}
-
-	private void OnTriggerExit(Collider other) {
-		gc.inBellTrigger = false;
-	}
 }

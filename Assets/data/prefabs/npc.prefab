@@ -845,6 +845,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dae0ca9e0ca3ace43b7e06c5f7c8d5b2, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     - target: {fileID: 2093453997297947665, guid: dae0ca9e0ca3ace43b7e06c5f7c8d5b2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -915,6 +919,7 @@ MonoBehaviour:
   - {fileID: 5108400432179077096}
   paintingHolder: {fileID: 5048064558884756858}
   painting: {fileID: 0}
+  interact: {fileID: 6737661876602843882}
   leaving: 0
   lastLeaving: 0
   bellTimer: 0
@@ -1027,7 +1032,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5650600519960555680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 368ce811330f4dc39173a469e461f304, type: 3}
   m_Name: 

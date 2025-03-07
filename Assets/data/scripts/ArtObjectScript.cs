@@ -70,6 +70,7 @@ public class ArtObjectScript : MonoBehaviour {
 
 			//Pick some random values
 			PickRandomValues();
+			Render();
 		}
 
 		Render();
@@ -88,13 +89,13 @@ public class ArtObjectScript : MonoBehaviour {
 		randomArtValues.isSquare = isSquare;
 		
 		//Is it fake? Flip a coin
-		randomArtValues.isFake = gc.FlipCoin();
+		randomArtValues.isFake = GameController.FlipCoin();
 
 		//If it IS fake
 		if (randomArtValues.isFake) {
 
 			//Is it a good fake? Flip a coin
-			randomArtValues.isGoodFake = gc.FlipCoin();
+			randomArtValues.isGoodFake = GameController.FlipCoin();
 		}
 
 		//Pick a frame
@@ -107,13 +108,13 @@ public class ArtObjectScript : MonoBehaviour {
 		randomArtValues.signatureFont = Random.Range(0, signatureFonts.Length);
 
 		//Set the artists real name 
-		randomArtValues.artistsRealName = gc.CreateName();
+		randomArtValues.artistsRealName = GameController.CreateName();
 
 		//If fake set the name of the artist being impersonated, if real set it to artistsRealName
-		randomArtValues.impersonatedArtistsName = randomArtValues.isFake ? gc.CreateName() : randomArtValues.artistsRealName;
+		randomArtValues.impersonatedArtistsName = randomArtValues.isFake ? GameController.CreateName() : randomArtValues.artistsRealName;
 
 		//If fake make up a new name, or use the artistsRealName, if real set it to the artistsRealName
-		randomArtValues.signatureName = randomArtValues.isFake ? (gc.FlipCoin() ? randomArtValues.artistsRealName : gc.CreateName()) : randomArtValues.artistsRealName;
+		randomArtValues.signatureName = randomArtValues.isFake ? (GameController.FlipCoin() ? randomArtValues.artistsRealName : GameController.CreateName()) : randomArtValues.artistsRealName;
 
 
 		//Pick a font
@@ -134,7 +135,7 @@ public class ArtObjectScript : MonoBehaviour {
 			artwork = realArtwork[randomArtValues.whichArtwork];
 
 			//Pick a signature location, or leave it off entirely 
-			randomArtValues.signatureLocation = gc.FlipCoin() ? Random.Range(-1, signatureLocations.Length) : -1;
+			randomArtValues.signatureLocation = GameController.FlipCoin() ? Random.Range(-1, signatureLocations.Length) : -1;
 		}
 
 		artValues = randomArtValues;

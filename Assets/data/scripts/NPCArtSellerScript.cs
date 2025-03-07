@@ -14,6 +14,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 	public Transform[] paintingSpawnPositions;
 	public Transform paintingHolder;
 	public ArtObjectScript painting;
+	public InteractableScript interact;
 	public bool leaving;
 	public bool lastLeaving;
 	public float bellTimer = 0;
@@ -44,7 +45,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 		//Shorthand the game controller
 		gc = FindFirstObjectByType<GameController>();
 
-        //Pick a spawn location
+		//Pick a spawn location
 		paintingSpawnPositionIndex = Random.Range(0, paintingSpawnPositions.Length);
 
 		//Shorthand it
@@ -52,14 +53,18 @@ public class NPCArtSellerScript : MonoBehaviour {
 
 		painting = gc.SpawnRandomPainting(paintingHolder, paintingSpawnPosition);
 
+		interact.OnInteract.AddListener(() => {
+			gc.StartConversationWithNPC();
+		});
+
 
 		//Set up the NPC's info
 		var newNPC = new GameController.Npc();
-		newNPC.name = gc.CreateName();
+		newNPC.name = GameController.CreateName();
 		newNPC.askingPrice = Random.Range(45, 769);
-		newNPC.thinksItsFake = gc.FlipCoin();
+		newNPC.thinksItsFake = GameController.FlipCoin();
 		newNPC.willAcceptPrice = (int)(newNPC.thinksItsFake ? (newNPC.askingPrice / 3) : (newNPC.askingPrice - newNPC.askingPrice * 0.1));
-		newNPC.willStormOut = gc.FlipCoin();
+		newNPC.willStormOut = GameController.FlipCoin();
 		newNPC.artPiece = painting.artValues;
 
 		npc = newNPC;
@@ -93,12 +98,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
-		if (lastLeaving != leaving && leaving) {
-			lastLeaving = leaving;
-			Leave();
-		}
-
-		if (!leaving && gc.readyToTalk) {
+		if (!leaving && interact.enabled && !gc.talking) {
 			if (!gc.inTalkTrigger) {
 				bellTimer += Time.deltaTime;
 
@@ -106,6 +106,18 @@ public class NPCArtSellerScript : MonoBehaviour {
 					gc.deskBell.RingBell();
 					bellInterval = Mathf.Clamp(bellInterval - Random.Range(0.25f, 0.5f), 0.25f, 10);
 					bellTimer = 0;
+
+					//Add a little money onto their asking price for every ring
+					var priceIncrement = Random.Range(1, 6);
+					var newNPCData = npc;
+					newNPCData.askingPrice += priceIncrement;
+					newNPCData.willAcceptPrice += priceIncrement;
+					npc = newNPCData;
+
+					Debug.Log(npc.askingPrice);
+					gc.yarnStorage.SetValue("$askingPrice", npc.askingPrice);
+					gc.yarnStorage.SetValue("$willAcceptPrice", npc.willAcceptPrice);
+
 				}
 			}
 			else {
@@ -204,16 +216,16 @@ public class NPCArtSellerScript : MonoBehaviour {
 		painting.transform.rotation = paintingRotBackup;
 
 		gc.npcInConversation = this;
-		gc.readyToTalk = true;
+		interact.enabled = true;
 	}
 
 	public async void Leave() {
 
 		//Turn the agent off
 		agent.enabled = true;
+		leaving = true;
 
-		gc.talking = false;
-		gc.readyToTalk = false;
+		interact.enabled = false;
 
 		agent.autoBraking = false;
 		agent.stoppingDistance = 2;
@@ -221,16 +233,25 @@ public class NPCArtSellerScript : MonoBehaviour {
 		await GoToWaypoint(gc.waypointLeave);
 
 
-		await UniTask.Delay(4000);
-		gc.SpawnNewNPC();
+		await UniTask.Delay(2000);
+
+		if (gc.answeringMachine.pendingMessages.Count == 0) {
+			gc.SpawnNewNPC();
+		}
+		
+		gc.currentNPC = null;
+		
 		Destroy(gameObject);
 
 	}
 
 	public async void LeaveWithPainting() {
+		if (leaving) {
+			return;
+		}
 
-		gc.talking = false;
-		gc.readyToTalk = false;
+		interact.enabled = false;
+		leaving = true;
 
 		//Backup the pianting data
 		var paintingPosBackup = painting.transform.position;
