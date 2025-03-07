@@ -11,7 +11,9 @@ namespace data.scripts {
 		public AudioClip vaGreatDealOnSale;
 		public AudioClip vaPaidTooMuchOverValue;
 		public AudioClip va5thCustomerWalkedOut;
+		public AudioClip vaTooManyFakes;
 		public AudioClip vaLJHookerLateRent;
+		public AudioClip vaLJHookerLateRentResponse;
 		public AudioClip vaAmazonScam;
 
 	}

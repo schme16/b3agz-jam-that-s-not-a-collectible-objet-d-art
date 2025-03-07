@@ -19,7 +19,7 @@ public class ArtObjectScript : MonoBehaviour {
 
 	//The signature element
 	private TextMeshPro signature;
-	
+
 	//The signature element
 	public bool isSquare;
 
@@ -28,7 +28,7 @@ public class ArtObjectScript : MonoBehaviour {
 
 	//All available frame materials
 	public Material[] frameMaterials;
-	
+
 	//All available frame materials
 	public Material[] frameTransparentMaterials;
 
@@ -82,12 +82,12 @@ public class ArtObjectScript : MonoBehaviour {
 	}
 
 
-	void PickRandomValues() {
+	public void PickRandomValues() {
 		var randomArtValues = new GameController.Art();
 
 		randomArtValues.hangedPosition = -1;
 		randomArtValues.isSquare = isSquare;
-		
+
 		//Is it fake? Flip a coin
 		randomArtValues.isFake = GameController.FlipCoin();
 
@@ -125,7 +125,10 @@ public class ArtObjectScript : MonoBehaviour {
 		//Is the artwork fake? (but not a good fake)
 		if (randomArtValues.isFake && !randomArtValues.isGoodFake) {
 			artwork = fakeArtwork[randomArtValues.whichArtwork];
-
+			
+			
+			randomArtValues.actualValue = Random.Range(150, 350);
+			Debug.Log(33333);
 			//Pick a signature location, mandatory for low quality fakes
 			randomArtValues.signatureLocation = Random.Range(0, signatureLocations.Length);
 		}
@@ -133,6 +136,8 @@ public class ArtObjectScript : MonoBehaviour {
 		//Real art, or good fake
 		else {
 			artwork = realArtwork[randomArtValues.whichArtwork];
+			Debug.Log(44444);
+			randomArtValues.actualValue = Random.Range(250, 750);
 
 			//Pick a signature location, or leave it off entirely 
 			randomArtValues.signatureLocation = GameController.FlipCoin() ? Random.Range(-1, signatureLocations.Length) : -1;
@@ -145,7 +150,7 @@ public class ArtObjectScript : MonoBehaviour {
 	public void LoadSavedArtwork(GameController.Art values) {
 
 		artValues = values;
-		
+
 		//Is the artwork fake? (but not a good fake)
 		if (values.isFake && !values.isGoodFake) {
 			artwork = fakeArtwork[values.whichArtwork];
@@ -167,7 +172,7 @@ public class ArtObjectScript : MonoBehaviour {
 		frame.material = new Material(useTransparentMaterials ? frameTransparentMaterials[artValues.frameMaterial] : frameMaterials[artValues.frameMaterial]);
 
 		//Instantiate the canvas material
-		canvas.material = new Material(useTransparentMaterials ? transparentCanvasMaterial :  canvas.material);
+		canvas.material = new Material(useTransparentMaterials ? transparentCanvasMaterial : canvas.material);
 
 
 		//Hide all non-active frames
@@ -196,7 +201,7 @@ public class ArtObjectScript : MonoBehaviour {
 			signature.SetText(artValues.signatureName);
 		}
 		else {
-			Debug.Log("No signature for this artwork");
+			//Debug.Log("No signature for this artwork");
 		}
 
 	}

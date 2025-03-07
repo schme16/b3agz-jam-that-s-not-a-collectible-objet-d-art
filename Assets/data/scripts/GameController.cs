@@ -103,6 +103,7 @@ public class GameController : MonoBehaviour {
 	public Texture[] eyes;
 	public Texture[] noses;
 	public Texture[] mouths;
+	public GameObject[] hats;
 
 
 	public struct Names {
@@ -126,6 +127,18 @@ public class GameController : MonoBehaviour {
 		//Bool to check if it's been loaded
 		public bool hasBeenLoaded;
 
+		//Bool to check if it's been loaded
+		public bool customerHasWalkedOut;
+
+		//Bool to check if it's been loaded
+		public bool hadGoodPurchase;
+
+		//Bool to check if it's been loaded
+		public bool hadBadPurchase;
+
+		//Bool to check if it's been loaded
+		public bool hadGoodSale;
+
 		//This shows the message was queued
 		public bool hasQueued_vaIntro;
 		public bool hasQueued_vaCustomerNotServed;
@@ -133,6 +146,7 @@ public class GameController : MonoBehaviour {
 		public bool hasQueued_vaGreatDealOnSale;
 		public bool hasQueued_vaPaidTooMuchOverValue;
 		public bool hasQueued_va5thCustomerWalkedOut;
+		public bool hasQueued_vaTooManyFakes;
 		public bool hasQueued_vaLJHookerLateRent;
 		public bool hasQueued_vaAmazonScam;
 
@@ -143,6 +157,7 @@ public class GameController : MonoBehaviour {
 		public bool hasPlayed_vaGreatDealOnSale;
 		public bool hasPlayed_vaPaidTooMuchOverValue;
 		public bool hasPlayed_va5thCustomerWalkedOut;
+		public bool hasPlayed_vaTooManyFakes;
 		public bool hasPlayed_vaLJHookerLateRent;
 		public bool hasPlayed_vaAmazonScam;
 	}
@@ -192,7 +207,6 @@ public class GameController : MonoBehaviour {
 
 
 	async void Start() {
-
 		uiRegisterText.SetText("$0.00");
 
 		collectedPortraitArt = new List<Art>();
@@ -326,6 +340,10 @@ public class GameController : MonoBehaviour {
 		//Set its name for the animator
 		painting.name = name;
 
+		painting.PresetValues = false;
+		painting.PickRandomValues();
+		painting.Render();
+
 		//Sync it to the spawn location values
 		painting.transform.position = paintingSpawnPosition.position;
 		painting.transform.rotation = paintingSpawnPosition.rotation;
@@ -390,7 +408,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void SpawnNewNPC() {
-		currentNPC = Instantiate(npcPrefab);
+		if (currentNPC == null) {
+			currentNPC = Instantiate(npcPrefab);
+		}
 	}
 
 	public async void ShowModelViewer(Transform obj) {
@@ -518,15 +538,104 @@ public class GameController : MonoBehaviour {
 	public void FlagsCheck() {
 
 		var newFlags = flags;
-		
+		var alreadyFlagged = false;
+
 		//Check if we need to trigger the storm out flag
 		if (newFlags.numberOfStormOuts > 4 && !newFlags.hasQueued_va5thCustomerWalkedOut) {
-			
+			alreadyFlagged = true;
 			newFlags.hasQueued_va5thCustomerWalkedOut = true;
-			
+
 			answeringMachine.pendingMessages.Add(5);
 			SaveManager.SaveMessages(answeringMachine.pendingMessages);
 		}
+
+
+
+		//Check if we need to trigger the too many fakes trigger
+		if (!alreadyFlagged && newFlags.numberOfFakes > 4 && !newFlags.hasQueued_vaTooManyFakes) {
+			alreadyFlagged = true;
+
+			newFlags.hasQueued_vaTooManyFakes = true;
+
+			answeringMachine.pendingMessages.Add(8);
+			SaveManager.SaveMessages(answeringMachine.pendingMessages);
+		}
+
+
+
+		//Check if we need to trigger the customer left in a huff trigger
+		if (!alreadyFlagged && newFlags.customerHasWalkedOut && !newFlags.hasQueued_vaCustomerNotServed) {
+			alreadyFlagged = true;
+
+			newFlags.hasQueued_vaCustomerNotServed = true;
+
+			answeringMachine.pendingMessages.Add(1);
+			SaveManager.SaveMessages(answeringMachine.pendingMessages);
+		}
+
+
+
+		//Check if we should trigger the amazon scam
+		if (!alreadyFlagged && newFlags.hadGoodPurchase && !newFlags.hasQueued_vaGreatDealOnPurchase) {
+			alreadyFlagged = true;
+
+			newFlags.hasQueued_vaGreatDealOnPurchase = true;
+
+			answeringMachine.pendingMessages.Add(2);
+			SaveManager.SaveMessages(answeringMachine.pendingMessages);
+		}
+
+
+
+		//Check if we should trigger the amazon scam
+		if (!alreadyFlagged && newFlags.hadGoodSale && !newFlags.hasQueued_vaGreatDealOnSale) {
+			alreadyFlagged = true;
+
+			newFlags.hasQueued_vaGreatDealOnSale = true;
+
+			answeringMachine.pendingMessages.Add(3);
+			SaveManager.SaveMessages(answeringMachine.pendingMessages);
+		}
+
+
+
+		//Check if we should trigger the amazon scam
+		if (!alreadyFlagged && newFlags.hadBadPurchase && !newFlags.hasQueued_vaPaidTooMuchOverValue) {
+			alreadyFlagged = true;
+
+			newFlags.hasQueued_vaPaidTooMuchOverValue = true;
+
+			answeringMachine.pendingMessages.Add(4);
+			SaveManager.SaveMessages(answeringMachine.pendingMessages);
+		}
+
+
+
+
+		//Check if we should trigger the amazon scam
+		if (!alreadyFlagged && Random.Range(0, 11) == 9 && !newFlags.hasQueued_vaAmazonScam) {
+			alreadyFlagged = true;
+
+			newFlags.hasQueued_vaAmazonScam = true;
+
+			answeringMachine.pendingMessages.Add(7);
+			SaveManager.SaveMessages(answeringMachine.pendingMessages);
+		}
+
+
+
+		//Check if we should trigger the LJ hooker call
+		if (!alreadyFlagged && Random.Range(0, 20) == 17 && !newFlags.hasQueued_vaLJHookerLateRent) {
+			alreadyFlagged = true;
+
+			newFlags.hasQueued_vaLJHookerLateRent = true;
+
+			answeringMachine.pendingMessages.Add(6);
+			answeringMachine.pendingMessages.Add(9);
+			SaveManager.SaveMessages(answeringMachine.pendingMessages);
+		}
+
+
 
 
 
@@ -720,16 +829,25 @@ public class GameController : MonoBehaviour {
 
 		gc.SaveCollectedArtwork();
 
-		gc.purchases.Add(new Sale {
+		var sale = new Sale {
 			type = "BUY",
 			npcsName = gc.npcInConversation.npc.name,
 			artistsName = artValues.artistsRealName,
 			salePrice = (int)purchasePrice,
 			actualValue = artValues.actualValue,
-			profit = (int)purchasePrice - artValues.actualValue,
+			profit = (int)(artValues.actualValue - purchasePrice),
 			isFake = artValues.isFake,
+		};
 
-		});
+		//Add the pruchase to the purchase history
+		gc.purchases.Add(sale);
+
+		//Update the ledgers
+		foreach (var ledger in gc.ledgers) {
+			ledger.Render();
+		}
+
+		Debug.Log($"Proifit: {sale.profit} (actual value: {sale.actualValue} - purchase price: {sale.salePrice})");
 
 		gc.SaveManager.SavePurchases(gc.purchases);
 
@@ -743,10 +861,22 @@ public class GameController : MonoBehaviour {
 			flags.numberOfFakes++;
 		}
 
+		if (sale.profit > 150) {
+			flags.hadGoodPurchase = true;
+		}
+
+		if (sale.profit < -70) {
+			flags.hadBadPurchase = true;
+		}
+
+
+
 		gc.flags = flags;
 		gc.SaveManager.SaveFlags(gc.flags);
-
 		gc.FlagsCheck();
+
+
+
 
 
 		var startScale = hangSlot.transform.localScale;

@@ -8,14 +8,14 @@ public class SaveManagerScript : MonoBehaviour {
 
 
 	public void ResetAllSaves() {
-		
+
 		//Reset the art
 		SaveArtList(new List<GameController.Art>(), "collectedPortraitArt");
 		SaveArtList(new List<GameController.Art>(), "collectedSquareArt");
-		
+
 		//Reset the flags
 		SaveFlagsList(new GameController.Flags(), "flags");
-		
+
 		//Reset the messages
 		SaveMessagesList(new List<int>(), "messages");
 	}
@@ -61,9 +61,6 @@ public class SaveManagerScript : MonoBehaviour {
 			SavePurchaseList(purchases, "purchases");
 		}
 
-		Debug.Log(purchases.Count);
-
-		
 
 		return purchases;
 	}
@@ -131,21 +128,20 @@ public class SaveManagerScript : MonoBehaviour {
 	}
 
 
-	
-	
-	
-	
+
+
+
+
 	/*Answering machine*/
-	
-	
-	
+
+
+
 
 	public List<int> LoadMessages() {
 
 		var pendingMessages = LoadMessagesList("messages");
-		
+
 		if (pendingMessages is null || pendingMessages.Count == 0) {
-			Debug.Log("pendingMessages is null");
 			pendingMessages = new List<int>();
 			SaveMessagesList(pendingMessages, "messages");
 		}
@@ -161,7 +157,6 @@ public class SaveManagerScript : MonoBehaviour {
 
 	public void SaveMessagesList(List<int> messagesList, string key) {
 		var json = JsonUtility.ToJson(new MessagesListWrapper(messagesList));
-		Debug.Log($"SaveMessagesList {json}");
 		PlayerPrefs.SetString(key, json);
 		PlayerPrefs.Save();
 	}

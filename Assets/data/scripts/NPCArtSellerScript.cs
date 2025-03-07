@@ -17,6 +17,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 	public InteractableScript interact;
 	public bool leaving;
 	public bool lastLeaving;
+	public float totalTimeRingingBell;
 	public float bellTimer = 0;
 	public float bellInterval = 3;
 
@@ -57,15 +58,16 @@ public class NPCArtSellerScript : MonoBehaviour {
 			gc.StartConversationWithNPC();
 		});
 
-
 		//Set up the NPC's info
 		var newNPC = new GameController.Npc();
 		newNPC.name = GameController.CreateName();
-		newNPC.askingPrice = Random.Range(45, 769);
+		newNPC.askingPrice = Random.Range(painting.artValues.actualValue - 55, painting.artValues.actualValue + 250);
 		newNPC.thinksItsFake = GameController.FlipCoin();
 		newNPC.willAcceptPrice = (int)(newNPC.thinksItsFake ? (newNPC.askingPrice / 3) : (newNPC.askingPrice - newNPC.askingPrice * 0.1));
 		newNPC.willStormOut = GameController.FlipCoin();
 		newNPC.artPiece = painting.artValues;
+		
+		Debug.Log($"real value: {painting.artValues.actualValue}, asking: {newNPC.askingPrice}");
 
 		npc = newNPC;
 
@@ -96,13 +98,15 @@ public class NPCArtSellerScript : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update() {
+	async void Update() {
 
 		if (!leaving && interact.enabled && !gc.talking) {
 			if (!gc.inTalkTrigger) {
 				bellTimer += Time.deltaTime;
 
+				totalTimeRingingBell += Time.deltaTime;
 				if (bellTimer > bellInterval) {
+
 					gc.deskBell.RingBell();
 					bellInterval = Mathf.Clamp(bellInterval - Random.Range(0.25f, 0.5f), 0.25f, 10);
 					bellTimer = 0;
@@ -113,11 +117,22 @@ public class NPCArtSellerScript : MonoBehaviour {
 					newNPCData.askingPrice += priceIncrement;
 					newNPCData.willAcceptPrice += priceIncrement;
 					npc = newNPCData;
-
-					Debug.Log(npc.askingPrice);
+	
 					gc.yarnStorage.SetValue("$askingPrice", npc.askingPrice);
 					gc.yarnStorage.SetValue("$willAcceptPrice", npc.willAcceptPrice);
 
+
+					if (totalTimeRingingBell > 5 && GameController.FlipCoin()) {
+						
+						LeaveWithPainting();
+						
+						await UniTask.Delay(2500);
+						
+						if (!gc.flags.customerHasWalkedOut) {
+							gc.flags.customerHasWalkedOut = true;
+							gc.FlagsCheck();
+						}
+					}
 				}
 			}
 			else {
@@ -235,12 +250,13 @@ public class NPCArtSellerScript : MonoBehaviour {
 
 		await UniTask.Delay(2000);
 
+		gc.currentNPC = null;
+		
+
 		if (gc.answeringMachine.pendingMessages.Count == 0) {
 			gc.SpawnNewNPC();
 		}
-		
-		gc.currentNPC = null;
-		
+
 		Destroy(gameObject);
 
 	}
@@ -296,6 +312,13 @@ public class NPCArtSellerScript : MonoBehaviour {
 		var nose = gc.noses[Random.Range(0, gc.noses.Length)];
 		var mouth = gc.mouths[Random.Range(0, gc.mouths.Length)];
 
+		var hasHat = GameController.FlipCoin();
+		
+		if (hasHat) {
+			Instantiate(gc.hats[Random.Range(0, gc.hats.Length)], transform);
+			hairProjector.enabled = false;
+		}
+
 
 		//Set the projectors to instanced materials
 		hairProjector.material = new Material(hairProjector.material);
@@ -311,7 +334,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 		leftEyeProjector.material.SetTexture("Base_Map", leftEye);
 		rightEyeProjector.material.SetTexture("Base_Map", leftEye);
 		leftEyeBrowProjector.material.SetTexture("Base_Map", leftEyebrow);
-		rightEyeBrowProjector.material.SetTexture("Base_Map", rightEyebrow);
+		rightEyeBrowProjector.material.SetTexture("Base_Map", leftEyebrow);
 		noseProjector.material.SetTexture("Base_Map", nose);
 		mouthProjector.material.SetTexture("Base_Map", mouth);
 

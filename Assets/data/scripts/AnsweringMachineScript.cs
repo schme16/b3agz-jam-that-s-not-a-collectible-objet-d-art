@@ -98,6 +98,20 @@ public class AnsweringMachineScript : MonoBehaviour {
 		});
 		
 		
+		//Add the vaTooManyFakes 8
+		allMessages.Add(new GameController.AnsweringMachineMessage {
+			audio = gc.va.vaTooManyFakes,
+			OnPlay = new UnityEvent(),
+		});
+		
+		
+		//Add the vaLJHookerLateRentResponse 9
+		allMessages.Add(new GameController.AnsweringMachineMessage {
+			audio = gc.va.vaLJHookerLateRentResponse,
+			OnPlay = new UnityEvent(),
+		});
+		
+		
 		
 		
 		
@@ -127,14 +141,6 @@ public class AnsweringMachineScript : MonoBehaviour {
 			gc.SaveManager.SaveFlags(gc.flags);
 		}
 		
-		Debug.Log(pendingMessages.Count);
-		//allMessages = new List<GameController.AnsweringMachineMessage>();
-
-		
-		
-		
-		
-		//pendingMessages.Add(newMessage);
 
 		gc.SaveManager.SaveMessages(pendingMessages);
 

@@ -3881,13 +3881,21 @@ MonoBehaviour:
   - {fileID: 952229197}
   - {fileID: 1383543804}
   flags:
+    numberOfFakes: 0
+    numberOfStormOuts: 0
+    numberOfPurchases: 0
     hasBeenLoaded: 0
+    customerHasWalkedOut: 0
+    hadGoodPurchase: 0
+    hadBadPurchase: 0
+    hadGoodSale: 0
     hasQueued_vaIntro: 0
     hasQueued_vaCustomerNotServed: 0
     hasQueued_vaGreatDealOnPurchase: 0
     hasQueued_vaGreatDealOnSale: 0
     hasQueued_vaPaidTooMuchOverValue: 0
     hasQueued_va5thCustomerWalkedOut: 0
+    hasQueued_vaTooManyFakes: 0
     hasQueued_vaLJHookerLateRent: 0
     hasQueued_vaAmazonScam: 0
     hasPlayed_vaIntro: 0
@@ -3896,6 +3904,7 @@ MonoBehaviour:
     hasPlayed_vaGreatDealOnSale: 0
     hasPlayed_vaPaidTooMuchOverValue: 0
     hasPlayed_va5thCustomerWalkedOut: 0
+    hasPlayed_vaTooManyFakes: 0
     hasPlayed_vaLJHookerLateRent: 0
     hasPlayed_vaAmazonScam: 0
   uiContinueButton: {fileID: 150646286}

@@ -922,6 +922,7 @@ MonoBehaviour:
   interact: {fileID: 6737661876602843882}
   leaving: 0
   lastLeaving: 0
+  totalTimeRingingBell: 0
   bellTimer: 0
   bellInterval: 3
   hairProjector: {fileID: 175396254853418223}
