@@ -36,6 +36,12 @@ public class MainMenuController : MonoBehaviour {
 		paintings.Remove(paintings[painting3]);
 
 		flags = SaveManager.LoadFlags();
+
+		if (!flags.hasBeenLoaded) {
+			flags.accessibilityMode = true;
+			
+			SaveManager.SaveFlags(flags);
+		}
 		
 		toggle.isOn = flags.accessibilityMode;
 		
@@ -53,6 +59,9 @@ public class MainMenuController : MonoBehaviour {
 		var accessibilityState = flags.accessibilityMode;
 		
 		SaveManager.ResetAllSaves();
+		
+		
+		
 		
 		flags = SaveManager.LoadFlags();
 		

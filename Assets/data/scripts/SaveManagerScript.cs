@@ -13,6 +13,9 @@ public class SaveManagerScript : MonoBehaviour {
 		SaveArtList(new List<GameController.Art>(), "collectedPortraitArt");
 		SaveArtList(new List<GameController.Art>(), "collectedSquareArt");
 
+		//Reset the purchases
+		SavePurchaseList(new List<GameController.Sale>(), "purchases");
+		
 		//Reset the flags
 		SaveFlagsList(new GameController.Flags(), "flags");
 

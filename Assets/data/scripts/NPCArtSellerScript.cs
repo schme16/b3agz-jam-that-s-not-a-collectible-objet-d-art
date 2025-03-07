@@ -61,10 +61,11 @@ public class NPCArtSellerScript : MonoBehaviour {
 		//Set up the NPC's info
 		var newNPC = new GameController.Npc();
 		newNPC.name = GameController.CreateName();
-		newNPC.askingPrice = Random.Range(painting.artValues.actualValue - 55, painting.artValues.actualValue + 250);
 		newNPC.thinksItsFake = GameController.FlipCoin();
-		newNPC.willAcceptPrice = (int)(newNPC.thinksItsFake ? (newNPC.askingPrice / 3) : (newNPC.askingPrice - newNPC.askingPrice * 0.1));
-		newNPC.willStormOut = GameController.FlipCoin();
+		newNPC.askingPrice = newNPC.thinksItsFake ? Random.Range(painting.artValues.actualValue /2, painting.artValues.actualValue + 20) : Random.Range(painting.artValues.actualValue /2, painting.artValues.actualValue + 150);
+		newNPC.askingPrice = (int)(painting.artValues.isFake && !painting.artValues.isGoodFake ? Random.Range(newNPC.askingPrice - newNPC.askingPrice * 0.1f, newNPC.askingPrice - newNPC.askingPrice * 0.2f) : newNPC.askingPrice);
+		newNPC.willAcceptPrice = (int)(newNPC.thinksItsFake ? (newNPC.askingPrice / 3) : (Random.Range(newNPC.askingPrice - newNPC.askingPrice * 0.3f, newNPC.askingPrice - newNPC.askingPrice * 0.1f)));
+		newNPC.willStormOut = Random.Range(0, 4) == 3;
 		newNPC.artPiece = painting.artValues;
 		
 		Debug.Log($"real value: {painting.artValues.actualValue}, asking: {newNPC.askingPrice}");

@@ -1772,6 +1772,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 1667bc50cd04c18419bac5e9c115cf45, type: 3}
   - {fileID: 2800000, guid: d5d057a7458e73a468af01dd8da5d70e, type: 3}
   - {fileID: 2800000, guid: 5a80716ec4b02ce4d96f71b9a543d8c1, type: 3}
+  - {fileID: 2800000, guid: 88402e45da87e2645b07f812af05c9e1, type: 3}
   canvas: {fileID: 4766288393270094685}
   transparentCanvasMaterial: {fileID: 2100000, guid: 724aa593fbc5a354ab5c0a5fe80f4fee, type: 2}
   useTransparentMaterials: 0

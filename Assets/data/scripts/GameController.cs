@@ -8,10 +8,8 @@ using Kamgam.UGUIBlurredBackground;
 using StarterAssets;
 using TMPro;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Yarn.Unity;
 using Random = UnityEngine.Random;
 
@@ -98,7 +96,6 @@ public class GameController : MonoBehaviour {
 	public AudioClip sfxAnsweringMachineBip;
 	public AudioClip sfxAnsweringMachineBeeep;
 	public VoiceActingScript va;
-	[FormerlySerializedAs("lockInptus")]
 	public bool lockInputs;
 
 
@@ -520,7 +517,7 @@ public class GameController : MonoBehaviour {
 
 	public void StartConversationWithNPC() {
 		talking = true;
-		dialogue.StartDialogue("Start");
+		dialogue.StartDialogue($"Dialogue{Random.Range(1, 6)}");
 	}
 
 	public async void ViewPaintingFromInteract() {

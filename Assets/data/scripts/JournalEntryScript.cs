@@ -24,7 +24,7 @@ public class JournalEntryScript : MonoBehaviour {
 		//Get the game controller
 		gc = FindFirstObjectByType<GameController>();
 
-		if (gc.flags.accessibilityMode) {
+		if (gc.flags.cleanFonts) {
 			uiTypeText.font = gc.accessibilityFont;
 			uiDescriptionText.font = gc.accessibilityFont;
 		}
