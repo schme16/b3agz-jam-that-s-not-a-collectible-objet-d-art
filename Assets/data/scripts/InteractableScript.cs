@@ -16,17 +16,19 @@ public class InteractableScript : MonoBehaviour {
 
 		//Get the game controller
 		gc = FindFirstObjectByType<GameController>();
-		
-		
+
+
 		gameObject.AddComponent<Outline>();
 		outline = GetComponent<Outline>();
-		outline.OutlineColor = new Color(255, 147,0, 255);
+		outline.OutlineColor = new Color(255, 147, 0, 255);
 		outline.OutlineWidth = 3;
 
 	}
 
 	private void Update() {
-		outline.enabled = gc is not null && gc.flags.accessibilityMode && inView;
+		if (outline is not null) {
+			outline.enabled = gc is not null && gc.flags.accessibilityMode && inView;
+		}
 	}
 
 	public void Interact() {
@@ -41,6 +43,8 @@ public class InteractableScript : MonoBehaviour {
 
 	private void OnDisable() {
 		inView = false;
-		outline.enabled = false;
+		if (outline is not null) {
+			outline.enabled = false;
+		}
 	}
 }

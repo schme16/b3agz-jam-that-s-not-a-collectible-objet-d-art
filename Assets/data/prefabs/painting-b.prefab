@@ -1690,6 +1690,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PresetValues: 0
+  artValues:
+    signatureName: 
+    artistsRealName: 
+    impersonatedArtistsName: 
+    isSquare: 0
+    isFake: 0
+    isGoodFake: 0
+    hangedPosition: 0
+    actualValue: 0
+    signatureLocation: 0
+    signatureFont: 0
+    frameOption: 0
+    frameMaterial: 0
+    whichArtwork: 0
   signatureLocations:
   - {fileID: 7654118947708662287}
   - {fileID: 7529333803522236025}
@@ -1747,6 +1761,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ee12d9871011caa4cb43cdb5dd4caba9, type: 3}
   - {fileID: 2800000, guid: 95e0b0a61fc8b544698ea3a0bc7ef3d5, type: 3}
   - {fileID: 2800000, guid: c0f41db9dbe0d9d4d907261bae91c148, type: 3}
+  initialScale: {x: 0, y: 0, z: 0}
   fakeArtwork:
   - {fileID: 2800000, guid: 670cc1a3af21e6244b8a7f4356787f4e, type: 3}
   - {fileID: 2800000, guid: 2bc401ca24009fd4aa531f4899820c93, type: 3}
@@ -1756,6 +1771,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 2768373c965d88840acbed09c278862b, type: 3}
   - {fileID: 2800000, guid: 1667bc50cd04c18419bac5e9c115cf45, type: 3}
   - {fileID: 2800000, guid: d5d057a7458e73a468af01dd8da5d70e, type: 3}
+  - {fileID: 2800000, guid: 5a80716ec4b02ce4d96f71b9a543d8c1, type: 3}
   canvas: {fileID: 4766288393270094685}
   transparentCanvasMaterial: {fileID: 2100000, guid: 724aa593fbc5a354ab5c0a5fe80f4fee, type: 2}
   useTransparentMaterials: 0

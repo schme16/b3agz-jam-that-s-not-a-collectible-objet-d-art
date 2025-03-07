@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject uiNewGameButton;
 	public SceneTransitionScript SceneManager;
 	public Toggle toggle;
+	public Toggle cleanFonts;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
@@ -34,12 +35,13 @@ public class MainMenuController : MonoBehaviour {
 		paintings[painting3].SetActive(true);
 		paintings.Remove(paintings[painting3]);
 
-
-
 		flags = SaveManager.LoadFlags();
+		
 		toggle.isOn = flags.accessibilityMode;
+		
+		cleanFonts.isOn = flags.cleanFonts;
+		
 		uiContinueButton.SetActive(flags.hasBeenLoaded);
-
 	}
 
 	public void ContinueGame() {
@@ -70,6 +72,16 @@ public class MainMenuController : MonoBehaviour {
 
 		var newFlags = flags;
 		newFlags.accessibilityMode = toggle.isOn;
+		flags = newFlags;
+		SaveManager.SaveFlags(flags);
+	}
+
+	
+	public void SetCleanFontsToggle() {
+
+		var newFlags = flags;
+		newFlags.cleanFonts = cleanFonts.isOn;
+		
 		flags = newFlags;
 		SaveManager.SaveFlags(flags);
 	}

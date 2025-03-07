@@ -8,6 +8,7 @@ using Kamgam.UGUIBlurredBackground;
 using StarterAssets;
 using TMPro;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour {
 	public bool talking;
 	public bool lastTalking;
 	public Color highlightColor;
+	public TMP_FontAsset accessibilityFont;
 
 
 
@@ -136,6 +138,8 @@ public class GameController : MonoBehaviour {
 
 		public bool accessibilityMode;
 
+		public bool cleanFonts;
+
 		//This shows the message was queued
 		public bool hasQueued_vaIntro;
 		public bool hasQueued_vaCustomerNotServed;
@@ -204,6 +208,7 @@ public class GameController : MonoBehaviour {
 
 
 	async void Start() {
+		
 		uiRegisterText.SetText("$0.00");
 
 		collectedPortraitArt = new List<Art>();
@@ -216,10 +221,23 @@ public class GameController : MonoBehaviour {
 			ledger.Render();
 		}
 
+
 		flags = SaveManager.LoadFlags();
 
-
-		Debug.Log($"Flags - numberOfStormOuts: {flags.numberOfStormOuts} - hasQueued_va5thCustomerWalkedOut: {flags.hasQueued_va5thCustomerWalkedOut}");
+    	await UniTask.Delay(300);
+		if (flags.cleanFonts) {
+			var text = FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+			
+			foreach (var textMeshProUGUI in text) {
+				textMeshProUGUI.gameObject.AddComponent<FontBackup>();
+				
+				textMeshProUGUI.GetComponent<FontBackup>().originalFont = textMeshProUGUI.font;
+				
+				textMeshProUGUI.font = accessibilityFont;
+			}
+		}
+		
+		
 		if (SaveManager.LoadMessages().Count == 0) {
 			SpawnNewNPC();
 		}

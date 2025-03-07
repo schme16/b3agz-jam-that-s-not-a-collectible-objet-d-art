@@ -25,8 +25,10 @@ public class JournalEntryScript : MonoBehaviour {
 		gc = FindFirstObjectByType<GameController>();
 
 		if (gc.flags.accessibilityMode) {
-		    textValue = $"{artistsName}{(isFake ? " (FAKE) " : " ")}from seller {npcsName} - ${salePrice} (${profit} profit)";
+			uiTypeText.font = gc.accessibilityFont;
+			uiDescriptionText.font = gc.accessibilityFont;
 		}
+		textValue = $"{artistsName}{(isFake ? " (FAKE) " : " ")}from seller {npcsName} - ${salePrice} (${profit} profit)";
 	}
 
 	void Update() {

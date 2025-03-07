@@ -1054,6 +1054,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inView: 0
+  outline: {fileID: 0}
 --- !u!1001 &5716218977334188673
 PrefabInstance:
   m_ObjectHideFlags: 0

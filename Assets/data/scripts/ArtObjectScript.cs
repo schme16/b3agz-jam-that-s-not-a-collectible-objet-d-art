@@ -95,7 +95,7 @@ public class ArtObjectScript : MonoBehaviour {
 		if (randomArtValues.isFake) {
 
 			//Is it a good fake? Flip a coin
-			randomArtValues.isGoodFake = GameController.FlipCoin();
+			randomArtValues.isGoodFake = GameController.FlipCoin() && GameController.FlipCoin();
 		}
 
 		//Pick a frame
@@ -124,9 +124,8 @@ public class ArtObjectScript : MonoBehaviour {
 
 		//Is the artwork fake? (but not a good fake)
 		if (randomArtValues.isFake && !randomArtValues.isGoodFake) {
+			
 			artwork = fakeArtwork[randomArtValues.whichArtwork];
-			
-			
 			randomArtValues.actualValue = Random.Range(150, 350);
 			//Pick a signature location, mandatory for low quality fakes
 			randomArtValues.signatureLocation = Random.Range(0, signatureLocations.Length);
@@ -134,6 +133,7 @@ public class ArtObjectScript : MonoBehaviour {
 
 		//Real art, or good fake
 		else {
+			
 			artwork = realArtwork[randomArtValues.whichArtwork];
 			randomArtValues.actualValue = Random.Range(250, 750);
 
