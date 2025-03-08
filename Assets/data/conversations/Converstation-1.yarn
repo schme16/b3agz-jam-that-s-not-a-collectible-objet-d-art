@@ -183,7 +183,7 @@ title: Dialogue4
     <<lookat npc-camera-target>>
 -> Let me take a closer look
     <<viewpainting>>
--> Not sure we want dodgy good hey
+-> Not sure we want dodgy goods hey
     <<lookat npc-camera-target>>
     <<if $thinksItsFake>>
         <<jump Haggle>>
@@ -228,7 +228,7 @@ title: Dialogue5
     <<lookat npc-camera-target>>
 -> Let me take a closer look
     <<viewpainting>>
--> Not sure we want dodgy good hey
+-> Not sure we want dodgy goods hey
     <<lookat npc-camera-target>>
     <<if $thinksItsFake>>
         <<jump Haggle>>
@@ -414,7 +414,7 @@ title: Purchased
 <<lookat painting>>
 
 <<set $dice = dice(10)>>
-<<if $actualPrice < $askingPrice>>
+<<if $askingPrice > ($actualValue + 100)>>
     {$npcName}: Ha! Sucker
 <<elseif $dice == 1>>
     {$npcName}: I feel a little cheated...

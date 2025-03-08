@@ -58,6 +58,7 @@ MonoBehaviour:
   textValue: 
   lastTextValue: '-'
   lastType: '-'
+  gc: {fileID: 0}
 --- !u!1 &7837481911843868607
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5096101079779410800, guid: 759cdc385aea6564190c7387e0ec932c, type: 2}
+  - {fileID: 2944882400694806865, guid: 1715cdc36aa60a0488ba892c4087023a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,8 +164,8 @@ MonoBehaviour:
   m_text: Squalimus "the meat" Flipilsly (FAKE) from Diddly Yipperstuk Donkinswothy
     - $743 (-$403 profit)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 759cdc385aea6564190c7387e0ec932c, type: 2}
-  m_sharedMaterial: {fileID: -5096101079779410800, guid: 759cdc385aea6564190c7387e0ec932c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1715cdc36aa60a0488ba892c4087023a, type: 2}
+  m_sharedMaterial: {fileID: 2944882400694806865, guid: 1715cdc36aa60a0488ba892c4087023a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -188,12 +189,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
+  m_fontSize: 9.57
   m_fontSizeBase: 22.31
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 10
-  m_fontSizeMax: 72
+  m_fontSizeMin: 2.6
+  m_fontSizeMax: 9.57
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -295,7 +296,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5096101079779410800, guid: 759cdc385aea6564190c7387e0ec932c, type: 2}
+  - {fileID: 2944882400694806865, guid: 1715cdc36aa60a0488ba892c4087023a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -339,8 +340,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: BUY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 759cdc385aea6564190c7387e0ec932c, type: 2}
-  m_sharedMaterial: {fileID: -5096101079779410800, guid: 759cdc385aea6564190c7387e0ec932c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1715cdc36aa60a0488ba892c4087023a, type: 2}
+  m_sharedMaterial: {fileID: 2944882400694806865, guid: 1715cdc36aa60a0488ba892c4087023a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

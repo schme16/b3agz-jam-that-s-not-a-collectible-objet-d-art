@@ -62,8 +62,7 @@ public class NPCArtSellerScript : MonoBehaviour {
 		var newNPC = new GameController.Npc();
 		newNPC.name = GameController.CreateName();
 		newNPC.thinksItsFake = GameController.FlipCoin();
-		newNPC.askingPrice = newNPC.thinksItsFake ? Random.Range(painting.artValues.actualValue /2, painting.artValues.actualValue + 20) : Random.Range(painting.artValues.actualValue /2, painting.artValues.actualValue + 150);
-		newNPC.askingPrice = (int)(painting.artValues.isFake && !painting.artValues.isGoodFake ? Random.Range(newNPC.askingPrice - newNPC.askingPrice * 0.1f, newNPC.askingPrice - newNPC.askingPrice * 0.2f) : newNPC.askingPrice);
+		newNPC.askingPrice = newNPC.thinksItsFake || painting.artValues.isFake ? Random.Range(painting.artValues.actualValue / 2, painting.artValues.actualValue + 20) : Random.Range(painting.artValues.actualValue / 2, painting.artValues.actualValue + 75);
 		newNPC.willAcceptPrice = (int)(newNPC.thinksItsFake ? (newNPC.askingPrice / 3) : (Random.Range(newNPC.askingPrice - newNPC.askingPrice * 0.3f, newNPC.askingPrice - newNPC.askingPrice * 0.1f)));
 		newNPC.willStormOut = Random.Range(0, 4) == 3;
 		newNPC.artPiece = painting.artValues;

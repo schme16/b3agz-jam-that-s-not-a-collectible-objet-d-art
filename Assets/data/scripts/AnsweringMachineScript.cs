@@ -205,7 +205,6 @@ public class AnsweringMachineScript : MonoBehaviour {
 
 			await PlayMessage(allMessages[message]);
 
-
 			if (pendingMessages.Count > 0) {
 				await PlayMessage(new GameController.AnsweringMachineMessage {
 					audio = gc.sfxAnsweringMachineBip,
@@ -213,6 +212,7 @@ public class AnsweringMachineScript : MonoBehaviour {
 			}
 
 		}
+		
 		pendingMessages.Clear();
 
 
@@ -226,6 +226,8 @@ public class AnsweringMachineScript : MonoBehaviour {
 			gc.SpawnNewNPC();
 		}
 	}
+	
+	
 
 	private async UniTask PlayMessage(GameController.AnsweringMachineMessage message) {
 		audioSource.clip = message.audio;

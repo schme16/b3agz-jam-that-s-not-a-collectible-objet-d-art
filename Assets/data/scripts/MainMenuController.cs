@@ -13,6 +13,8 @@ public class MainMenuController : MonoBehaviour {
 	public SceneTransitionScript SceneManager;
 	public Toggle toggle;
 	public Toggle cleanFonts;
+	public Toggle muteMusic;
+	public AudioSource musicPlayer;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
@@ -47,6 +49,11 @@ public class MainMenuController : MonoBehaviour {
 		
 		cleanFonts.isOn = flags.cleanFonts;
 		
+		muteMusic.isOn = flags.muteMusic;
+		
+		musicPlayer.mute = flags.muteMusic;
+
+		
 		uiContinueButton.SetActive(flags.hasBeenLoaded);
 	}
 
@@ -57,10 +64,10 @@ public class MainMenuController : MonoBehaviour {
 	public void NewGame() {
 		
 		var accessibilityState = flags.accessibilityMode;
+		var cleanFontsState = flags.cleanFonts;
+		var muteMusicState = flags.muteMusic;
 		
 		SaveManager.ResetAllSaves();
-		
-		
 		
 		
 		flags = SaveManager.LoadFlags();
@@ -68,6 +75,10 @@ public class MainMenuController : MonoBehaviour {
 		var newFlags = flags;
 
 		newFlags.accessibilityMode = accessibilityState;
+		
+		newFlags.cleanFonts = cleanFontsState;
+		
+		newFlags.muteMusic = muteMusicState;
 		
 		flags = newFlags;
 		
@@ -90,6 +101,18 @@ public class MainMenuController : MonoBehaviour {
 
 		var newFlags = flags;
 		newFlags.cleanFonts = cleanFonts.isOn;
+		
+		flags = newFlags;
+		SaveManager.SaveFlags(flags);
+	}
+
+	
+	public void MuteMusicToggle() {
+
+		var newFlags = flags;
+		newFlags.muteMusic = muteMusic.isOn;
+
+		musicPlayer.mute = newFlags.muteMusic;
 		
 		flags = newFlags;
 		SaveManager.SaveFlags(flags);

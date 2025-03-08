@@ -116,6 +116,7 @@ public class GameController : MonoBehaviour {
 	[Serializable]
 	public struct Flags {
 
+
 		//Bool to check if it's been loaded
 		public bool hasBeenLoaded;
 
@@ -137,6 +138,8 @@ public class GameController : MonoBehaviour {
 
 		public bool cleanFonts;
 
+		public bool muteMusic;
+		
 		//This shows the message was queued
 		public bool hasQueued_vaIntro;
 		public bool hasQueued_vaCustomerNotServed;
