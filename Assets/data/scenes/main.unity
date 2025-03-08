@@ -11369,6 +11369,7 @@ MonoBehaviour:
     hadGoodSale: 0
     accessibilityMode: 0
     cleanFonts: 0
+    muteMusic: 0
     hasQueued_vaIntro: 0
     hasQueued_vaCustomerNotServed: 0
     hasQueued_vaGreatDealOnPurchase: 0
@@ -13856,7 +13857,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 6, y: 6}
+  m_SizeDelta: {x: 7, y: 7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1123184619
 MonoBehaviour:
